@@ -158,7 +158,6 @@ class PBSlotFile {
         $requiresFound += Resolve-Path -Path $Matches.path -Relative
         Write-Host "Writing $($Matches.path)"
         Write-Host " - With relative path $($requiresFound[-1])"
-        Write-Host 
         if((Test-Path -Path $requiresFound[-1]) -and ($Overwrite -eq $false)) {
           Write-Host " - Skipping write since Overwrite was not true"
         }
@@ -189,7 +188,7 @@ class PBSlotFile {
       {
         $reqPath = $Matches.path
         if($Matches.path.Contains("Mock")) {
-          $this.Requires[$Path] = $this.Requires[$Path] -join "`n" -replace "require `"${reqPath}`"","" -split "`n"
+          $this.Requires[$Path] = $this.Requires[$Path] -join "`n" -replace "require `"${reqPath}`"", "--==require `"${reqPath}`"" -split "`n"
         }
         else {
           $this.Requires[$Path] = $this.Requires[$Path] -join "`n" -replace "require `"${reqPath}`"", "--==require `"${reqPath}`"" -split "`n"
