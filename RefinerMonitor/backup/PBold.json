@@ -1,0 +1,150 @@
+{
+    "slots": {
+        "0": {
+            "name": "Display",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "1": {
+            "name": "Refiner",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "2": {
+            "name": "OutputContainer1",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "3": {
+            "name": "CoreUnit",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "4": {
+            "name": "OutputContainer2",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "5": {
+            "name": "slot6",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "6": {
+            "name": "slot7",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "7": {
+            "name": "slot8",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "8": {
+            "name": "slot9",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "9": {
+            "name": "slot10",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-1": {
+            "name": "unit",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-3": {
+            "name": "player",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-2": {
+            "name": "construct",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-4": {
+            "name": "system",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        },
+        "-5": {
+            "name": "library",
+            "type": {
+                "events": [],
+                "methods": []
+            }
+        }
+    },
+    "handlers": [
+        {
+            "code": "local json = require(\"dkjson\")\nlocal displayData = DisplayData(Refiner)\nlocal containerData = ContainerContents(OutputContainer1)\nfor k, v in pairs(containerData.GetContents()) do\n  system.print(\"Data = \" .. json.encode(v))\n  displayData[#displayData + 1] = {v[\"name\"],v[\"quantity\"]}\nend\n\nlocal containerData = ContainerContents(OutputContainer2)\nfor k, v in pairs(containerData.GetContents()) do\n  displayData[#displayData + 1] = {v[\"name\"],v[\"quantity\"]}\nend\nlocal displayJson = json.encode(displayData)\n\nDisplay.setScriptInput(displayJson)\n\n\n\n",
+            "filter": {
+                "args": [
+                    {
+                        "value": "status"
+                    }
+                ],
+                "signature": "onStatusChanged(status)",
+                "slotKey": "1"
+            },
+            "key": "0"
+        },
+        {
+            "code": "unit.setTimer(\"Update\", 10)\n\n\nif not DuElements then\n  DuElements = {\n    CarbonePure = \"CarbonPure\",\n    AluminumPure = \"AluminumPure\",\n    SiliconPure = \"SiliconPure\",\n    IronPure = \"IronPure\",\n    OxygenPure = \"OxygenPure\",\n    HydrogenPure = \"HydrogenPure\"\n  }\nend\n\nif not ContainerContents then\n  ContainerContents = {}\n  ContainerContents.__index = ContainerContents\n\n  function ContainerContents(container)\n    self = {\n        contents = {}\n    }\n        \n    for k, v in pairs(container.getContent()) do\n      self.contents[#self.contents + 1] = {\n        id = v[\"id\"], \n        name = system.getItem(v[\"id\"])[\"displayName\"], \n        quantity = v[\"quantity\"]\n      }\n    end\n\n    function self.GetQuantity(name)\n      for k, v in self do\n        if(v[\"name\"] == name) then\n          return v[\"quantity\"]\n        end\n      end\n    end\n        \n    function self.GetContents()\n      return self.contents\n    end\n        \n    return self\n  end\nend\n\nif not IndustryState then\n  IndustryState = {\n   [1] = \"Stopped\",\n   [2] = \"Running\",\n   [3] = \"Missing Ingredient\",\n   [4] = \"Ouptut Full\",\n   [5] = \"No Output Container\",\n   [6] = \"Pending\",\n   [7] = \"Missing Schematic\"\n  }\nend\nlocal json = require(\"dkjson\")\n\nif not DisplayData then\n  DisplayData = {}\n  DisplayData.__index = DisplayData\n\n  ---@param refiner Industry\n  function DisplayData(refiner)\n    local self = {\n      {\"RefinerState\", IndustryState[refiner.getState()]}\n    }\n    \n    local inputItem = system.getItem(refiner.getInputs()[1][\"id\"])\n    local outputItem = system.getItem(refiner.getOutputs()[1][\"id\"])\n    \n    self[#self + 1] = {\"InputName\", inputItem[\"displayName\"]}\n    self[#self + 1] = {\"OutputName\", outputItem[\"displayName\"]}\n        \n    return self\n  end\nend\n\n\nlocal json = require(\"dkjson\")\nlocal displayData = DisplayData(Refiner)\nlocal containerData = ContainerContents(OutputContainer1)\nfor k, v in pairs(containerData.GetContents()) do\n  system.print(\"Data = \" .. json.encode(v))\n  displayData[#displayData + 1] = {v[\"name\"],v[\"quantity\"]}\nend\n\nlocal containerData = ContainerContents(OutputContainer2)\nfor k, v in pairs(containerData.GetContents()) do\n  displayData[#displayData + 1] = {v[\"name\"],v[\"quantity\"]}\nend\nlocal displayJson = json.encode(displayData)\n\nDisplay.setScriptInput(displayJson)",
+            "filter": {
+                "args": [],
+                "signature": "onStart()",
+                "slotKey": "-1"
+            },
+            "key": "1"
+        },
+        {
+            "code": "local json = require(\"dkjson\")\n\nlocal displayData = DisplayData(Refiner)\nlocal containerData = ContainerContents(OutputContainer1)\nfor k, v in pairs(containerData.GetContents()) do\n  system.print(\"Data = \" .. json.encode(v))\n  displayData[#displayData + 1] = {v[\"name\"],v[\"quantity\"]}\nend\n\nlocal containerData = ContainerContents(OutputContainer2)\nfor k, v in pairs(containerData.GetContents()) do\n  displayData[#displayData + 1] = {v[\"name\"],v[\"quantity\"]}\nend\nlocal displayJson = json.encode(displayData)\n\nDisplay.setScriptInput(displayJson)\n\n--------------------------\n\n\n\n",
+            "filter": {
+                "args": [
+                    {
+                        "value": "Update"
+                    }
+                ],
+                "signature": "onTimer(tag)",
+                "slotKey": "-1"
+            },
+            "key": "2"
+        }
+    ],
+    "methods": [
+      
+    ],
+    "events": []
+}

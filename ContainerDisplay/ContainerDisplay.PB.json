@@ -1,0 +1,97 @@
+{
+    "slots":  {
+                  "0":  {
+                            "name":  "Container",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "1":  {
+                            "name":  "Display",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "2":  {
+                            "name":  "slot3",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "3":  {
+                            "name":  "Container",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "4":  {
+                            "name":  "slot5",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "5":  {
+                            "name":  "slot6",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "6":  {
+                            "name":  "slot7",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "7":  {
+                            "name":  "slot8",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "8":  {
+                            "name":  "slot9",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "9":  {
+                            "name":  "slot10",
+                            "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                        },
+                  "-1":  {
+                             "name":  "unit",
+                             "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                         },
+                  "-3":  {
+                             "name":  "player",
+                             "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                         },
+                  "-2":  {
+                             "name":  "construct",
+                             "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                         },
+                  "-4":  {
+                             "name":  "system",
+                             "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                         },
+                  "-5":  {
+                             "name":  "library",
+                             "type":  "@{events=System.Object[]; methods=System.Object[]}"
+                         }
+              },
+    "handlers":  [
+                     {
+                         "code":  "local json = require(\u0027dkjson\u0027)\n\nsystem.print(\"CONTAINER UPDATE EVENT\")\nsystem.print(\"Retrieving content\")\n\ncontent = Container.getContent()\ncontentJson = json.encode(content)\n\nDisplay.setScriptInput(contentJson)",
+                         "filter":  "@{args=System.Object[]; signature=onContentUpdate(); slotKey=0}",
+                         "key":  "0"
+                     },
+                     {
+                         "code":  "system.print(\"UPDATE\")",
+                         "filter":  "@{args=System.Object[]; signature=onContentUpdate(); slotKey=3}",
+                         "key":  "1"
+                     },
+                     {
+                         "code":  "system.print(\"Container:OnStart()\")",
+                         "filter":  "@{args=System.Object[]; signature=onStart(); slotKey=3}",
+                         "key":  "2"
+                     },
+                     {
+                         "code":  "local json = require(\u0027dkjson\u0027)\n\nsystem.print(\"Updating Content\")\n\nContainer.updateContent()\n\n",
+                         "filter":  "@{args=System.Object[]; signature=onTimer(tag); slotKey=-1}",
+                         "key":  "3"
+                     },
+                     {
+                         "code":  "local json = require(\u0027dkjson\u0027)\n\nsystem.print(\"Setting timer\")\nunit.setTimer(\"ContainerUp\", 32)\n\nsystem.print(\"Updating Content\")\n\ncontent = Container.updateContent()\n\nsystem.print(\"Retrieving content\")\n\n--content = Container.getClass()\n--contentJson = content --json.encode(content)\n\nDisplay.setScriptInput(content)",
+                         "filter":  "@{args=System.Object[]; signature=onStart(); slotKey=-1}",
+                         "key":  "4"
+                     }
+                 ],
+    "methods":  [
+
+                ],
+    "events":  [
+
+               ]
+}
