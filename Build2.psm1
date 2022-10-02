@@ -148,29 +148,23 @@ class PBSlotFile {
     [bool]$Overwrite) 
   {
     $requiresFound = @()
-    $parts = ($this.Code -split "--== start file ")
-    foreach($part in $parts) {
-      $allLines = ($part -join "`n" -split "--== end require ==--")[0]
-      if($allLines -match "--== require (?<require>.*?) ==--") {
-        $lines = $allLines -split "\n" | Select-String -NotMatch "--== require"
+    $parts = ($this.Code.Trim() -split "--== start file ")
+    foreach($part in ($parts | Where-Object {$_ -ne ""})) {
+      $allLines = ($part -join "`n" -split "--== end file")[0]
+      if($allLines -match "(?<path>.*?) ==--") {
+        $lines = $allLines -split "\n" | Select-String -NotMatch " ==--"
         $cleanedCode = $lines -join "`n"
-        $requiresFound += Resolve-Path -Path $Matches.require -Relative
-        Write-Host "Writing $($Matches.require)"
+        $cleanedCode = $cleanedCode -replace "--==require","require"
+        $requiresFound += Resolve-Path -Path $Matches.path -Relative
+        Write-Host "Writing $($Matches.path)"
         Write-Host " - With relative path $($requiresFound[-1])"
-        Write-Host $cleanedCode
-      }
-      else {
-        $cleanedCode = ($parts -join "`n").Trim() | Select-String -NotMatch "--== require"
-        if($cleanedCode -match "--== main ==--") {
-          $cleanedParts = $cleanedCode.ToString().Trim() -split "`n" | Select-String -NotMatch "--== main"
-          $cleanedParts = $cleanedParts | Select-String -NotMatch "--== end main"
-          $cleanedCode = ($cleanedParts -join "`n").Trim()
-          Write-Host "Writing $($this.Filename)"
-          $cleanedCode = ($requiresFound -join "\n") + $cleanedCode
-          Write-Host $cleanedCode
+        Write-Host 
+        if((Test-Path -Path $requiresFound[-1]) -and ($Overwrite -eq $false)) {
+          Write-Host " - Skipping write since Overwrite was not true"
         }
-
-        #$cleanedCode | Set-Content $this.FileName
+        else {
+          $cleanedCode | Set-Content -Encoding Ascii -Path $requiresFound[-1]
+        }
       }
     }
   }
@@ -251,7 +245,7 @@ class PBFile {
   [void]ReadSlotFiles() 
   {
     $this.SlotFiles.Read()
-    $this.updatePB()
+    $this.UpdatePB()
   }
 
   [void]UpdatePB()
@@ -277,9 +271,23 @@ $($slot.Requires[$req] -join "`n")
 "@
         }
       }
+
+      $slot.Code = @"
+--== start file $($slot.FileName) ==--
+
+$($slot.Code -join "`n")
+
+--== end file $($slot.FileName) ==--
+"@
+
     }
 
-    $unitFile.Code = $unitFileHeader + ($unitFile.Code -join "`n")
+    $unitFile.Code = @"
+$unitFileheader
+
+$($unitFile.Code)
+
+"@
 
     # write the PB
     foreach($slotFile in $this.SlotFiles) {
