@@ -1,3 +1,4 @@
+
 local json = require("dkjson")
 require "../Mock/industry.lua"
 require "../Utils/IndustryState.lua"
@@ -38,4 +39,5 @@ if not DisplayData then
     return self
   end
 end
+
 

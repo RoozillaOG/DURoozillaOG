@@ -1,3 +1,4 @@
+
 local json = require("dkjson")
 require "./DisplayData.lua"
 require "../Utils/ContainerContents.lua"
@@ -8,4 +9,5 @@ unit.setTimer("Update", 10)
 
 local displayData = DisplayData(Refiner)
 displayData.Update()
+
 
