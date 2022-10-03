@@ -12,11 +12,11 @@ if not ContainerContents then
         
     --system.print(json.encode(container.getContent()))
     for ck, vc in pairs(containers) do
-      system.print("Container: " .. ck)
+      --system.print("Container: " .. ck)
 
       for k, v in pairs(containers[ck].getContent()) do
         local item = system.getItem(v.id)
-        system.print("  Item = " .. item.name)
+        --system.print("  Item = " .. item.name)
  
         if(self.contents[item.name]) then
           system.print("Updating existing quantity")
@@ -33,10 +33,13 @@ if not ContainerContents then
       end
     end
 
-    function self.GetQuantity(name)
-      for k, v in self do
-        if(v["name"] == name) then
-          return v["quantity"]
+    function self.GetQuantity(id)
+            system.print("Param id = " .. id)
+      for k, v in pairs(self.contents) do
+        system.print("Id = " .. v.id)
+        system.print("Value = " .. v.quantity)
+        if(v.id == id) then
+          return v.quantity
         end
       end
     end

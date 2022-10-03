@@ -2,132 +2,13 @@
 #   [Parameter(Mandatory=$true)][string]$LuaFile,
 #   [string]$OutputFile,
 #   [switch]$CopyToClipboard)
-
-class MergedScript {
-  [string[]]$Requires = @()
-  [hashtable]$ScriptPieces = @{}
-  [string[]]$Script = @()
-  [string]$Name
-
-  [void]DoMerge(
-    [string]$Path)
-  {
-    $processed = @()
-    foreach($require in $this.Requires) {
-      if(-not $processed.Contains($require))
-      {
-        $processed += $require
-        if($require -ne $this.Name) {
-          $this.Script += "`n--== start require ==--`n"
-          $this.Script += "--== require $require ==--"
-        }
-        else {
-          $this.Script += "`n--== main ==--`n"
-        }
-        $this.Script += $this.ScriptPieces[$require] -join "`n"
-        if($require -ne $this.Name) {
-          $this.Script += "`n--== end require ==--`n"
-        }
-        else {
-          $this.Script += "`n--== end main ==--`n"
-        }
-      }
-    }
-  }
-
-  [void]GetRequires(
-    [string]$Path)
-  {
-    if($this.Requires.Contains($Path)) {
-      # Move to the top of list, already been processed, but dependency moved up
-      Write-Host "Moving dependency $Path to top"
-      $this.Requires = @($Path) + $this.Requires
-      return
-    }
-
-    $scriptContent = (Get-Content -Path $Path)
-    $newContent = $scriptContent | Select-String -NotMatch ".*-- mock variable"
-    $requireList = @()
-    $requireList = $scriptContent -match "^require `".*.lua`""
-    if($requireList -ne "False") {
-      foreach($require in $requireList) {
-        Write-Host "Processing dependency $require"
-        if($require -match "^require `"(?<path>.*.lua)`"") {
-          Write-Host "  - local dependency"
-          if(Test-Path "$((Get-Item $Path).Directory)/$($Matches.path)") {
-            if(-not $require.Contains("Mock")) {
-              Write-Host "  - Including content from $((Get-Item $Path).Directory)/$($Matches.path)"
-              $this.GetRequires("$((Get-Item $Path).Directory)/$($Matches.path)")
-            }
-            else {
-              Write-Host "  - ignoring mock data"
-            }
-            Write-Host "  - Removing require reference "
-            $newContent = ($newContent | Select-string -NotMatch "^require `".*$(Split-Path $Matches.path -Leaf)`"")
-          }
-        }
-      }
-    }
-    $this.Requires += $Path
-    $this.ScriptPieces[$Path] = $newContent
-  }
-
-  MergedScript(
-    [string]$Path)
-  {
-    $this.Name = $Path
-    $this.GetRequires($Path)
-    $this.DoMerge($Path)
-  }
-}
-
-function Invoke-Build(
-  [string]$Path,
-  [switch]$CopytoClipboard) 
-{
-  if(Test-Path -Path .\Merged.lua) {
-    Remove-Item -Path .\Merged.lua
-  }
-
-  $files = ""
-  if($Path) {
-    $files = Get-Item -Path $Path
-  }
-  else {
-    $files = Get-ChildItem . -Filter *.lua
-    $scripts = @()
-  }
-  
-  foreach($file in $files) {
-    Write-Host "Processing script $($file.Name)"
-    $scripts += [MergedScript]::new($file.Name)
-  }
-
-  "" | Set-Content .\Merged.lua
-  foreach($script in $scripts) {
-    @"
------ $($script.Name) ----
-$($script.Script -join "`n")
-
---------------------------
-
-
-"@ | Add-Content .\Merged.lua
-
-  }
-
-  if($CopytoClipboard) {
-    Get-Content .\Merged.lua | Set-Clipboard
-  }
-}
-
-class PBSlotFile {
+class CodeFile {
   [int]$HandlerKey
   [string]$FileName
   [hashtable]$Requires = @{}
   [string[]]$Code
 
-  PBSlotFile(
+  CodeFile(
     [PSObject]$PB,
     [PSObject]$Handler)
   {
@@ -143,6 +24,15 @@ class PBSlotFile {
 
     $this.Code = $Handler.Code
   }
+
+  CodeFile(
+    [string]$Path)
+  {
+    $this.FileName = $Path
+    $this.Code = (Get-Content -Path $Path) -join "`n"
+  }
+
+  CodeFile() {}
 
   [void]Write(
     [bool]$Overwrite) 
@@ -174,7 +64,7 @@ class PBSlotFile {
     }
 
     # check if file was renamed
-    if((Get-Item $requiresFound[-1]) -ne (Get-Item $this.FileName)) {
+    if((Get-Item $requiresFound[-1]).Name -ne (Get-Item $this.FileName).Name) {
       Move-Item $requiresFound[-1] $this.FileName
     }
   }
@@ -207,8 +97,6 @@ class PBSlotFile {
           $this.GetRequires($relativePath) 
         }
       }
-
-
     }
   }
 
@@ -223,9 +111,77 @@ class PBSlotFile {
   }
 }
 
+class DisplayFile {
+  [string]$Code = ""
+  [CodeFile]$CodeFile
+  
+  DisplayFile()
+  {
+
+  }
+
+  DisplayFile(
+    [string]$Path)
+  {
+    $this.CodeFile = [CodeFile]::new($Path)
+    $this.CodeFile.Read()
+    $this.Parse()
+  }
+
+  static [DisplayFile]FromFile(
+    [string]$Path)
+  {
+    return [DisplayFile]::FromString(((Get-Content -Path $Path) -join "`n"))
+  }
+
+  static [DisplayFile]FromString(
+    [string]$Data)
+  {
+    $df = [DisplayFile]::new()
+    $df.CodeFile = [CodeFile]::new()
+    $df.CodeFile.Code = $Data
+    return $df
+  }
+
+  [void]Write(
+    [bool]$Overwrite)
+  {
+    $this.CodeFile.Write($Overwrite)
+  }
+
+  [void]Parse()
+  {
+    $unitFileHeader = ""
+    foreach($req in $this.CodeFile.Requires.Keys)
+    {
+        $unitFileHeader += @"
+
+--== start file ${req} ==--
+
+$($this.CodeFile.Requires[$req] -join "`n")
+
+--== end file ${req} ==--
+
+"@
+    }
+
+    $this.Code = @"
+
+$unitFileHeader
+
+--== start file $($this.CodeFile.FileName) ==--
+
+$($this.CodeFile.Code -join "`n")
+
+--== end file $($this.CodeFile.FileName) ==--
+
+"@
+  }
+}
+
 class PBFile {
   [PSObject]$PBContents
-  [PBSlotFile[]]$SlotFiles
+  [CodeFile[]]$SlotFiles
 
   static [PBFile]FromFile(
     [string]$Path)
@@ -240,7 +196,7 @@ class PBFile {
     $pb = ($Data) | ConvertFrom-Json
     $pbFile.PBContents = $pb
     foreach($handler in $pb.handlers) {
-      $pbFile.SlotFiles += [PBSlotFile]::new($pb, $handler)
+      $pbFile.SlotFiles += [CodeFile]::new($pb, $handler)
     }
 
     return $pbFile
@@ -334,5 +290,34 @@ function Invoke-PBConstruct(
   }
   else {
     $json | Set-Content $Path
+  }
+}
+
+function Invoke-DisplayDeconstruct(
+  [string]$Path = "./Display1.Merged.lua",
+  [switch]$FromClipboard)
+{
+  if($FromClipboard) {
+    $displayFile = [DisplayFile]::FromString((Get-Clipboard))
+  }
+  else {
+    $displayFile = [DisplayFile]::FromFile($Path)
+  }
+
+  $displayFile.Write($true)
+}
+
+function Invoke-DisplayConstruct(
+  [string]$Path = "./Display1.lua",
+  [switch]$ToClipboard)
+{
+  $displayFile = [DisplayFile]::new($Path)
+
+  if($ToClipboard) {
+    $displayFile.Code | Set-Clipboard
+  }
+  else {
+    $mergedFileName = $Path -replace ".lua",".Merged.lua"
+    $displayFile.Code | Set-Content -Encoding Ascii -Path $mergedFileName
   }
 }

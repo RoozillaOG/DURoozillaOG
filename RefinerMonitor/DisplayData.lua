@@ -1,8 +1,8 @@
 
 local json = require("dkjson")
 require "../Mock/industry.lua"
-require "../Utils/IndustryState.lua"
-require "../Utils/ContainerContents.lua"
+require "../Industry/IndustryState.lua"
+require "../Container/ContainerContents.lua"
 
 if not DisplayData then
   DisplayData = {}
@@ -24,6 +24,8 @@ if not DisplayData then
     
       self.data[#self.data + 1] = {"InputName", inputItem["displayName"]}
       self.data[#self.data + 1] = {"OutputName", outputItem["displayName"]}
+            
+      self.data[#self.data + 1] = {"Uptime", self.refiner.getUptime()}
             
       local containerData = ContainerContents({OutputContainer1, OutputContainer2})
       local contents = containerData.GetContents()

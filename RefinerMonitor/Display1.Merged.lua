@@ -1,4 +1,34 @@
-require "./ColorRGBA.lua"
+
+
+--== start file ..\Ui\ColorRGBA.lua ==--
+
+if not ColorRGBA then
+  ColorRGBA = {}
+  ColorRGBA.__index = ColorRGBA
+
+  function ColorRGBA(r, g, b, a)
+    local self = {
+      r = r or 0,
+      g = g or 0,
+      b = b or 0,
+      a = a or 1.0
+    }
+
+    function self.LightGreen() return ColorRGBA(0.0, 0.3, 0.0, 0.3) end
+    function self.LightRed() return ColorRGBA(0.3, 0.0, 0.0, 0.3) end
+    function self.LightBlue() return ColorRGBA(0.0, 0.0, 0.3, 0.3) end
+    function self.White() return ColorRGBA(0.7, 0.7, 0.7, 0.8) end
+    function self.Black() return ColorRGBA(0.0, 0.0, 0.0, 0.8) end
+
+    return self
+  end
+end
+
+--== end file ..\Ui\ColorRGBA.lua ==--
+
+--== start file ..\Ui\UiTable.lua ==--
+
+--==require "./ColorRGBA.lua"
 local json = require("dkjson")
 
 if not UiTable then
@@ -86,3 +116,26 @@ if not UiTable then
     return self
   end
 end
+
+--== end file ..\Ui\UiTable.lua ==--
+
+
+--== start file .\Display1.lua ==--
+
+--==require "../Ui/UiTable.lua"
+
+local json = require("dkjson")
+
+local layer = createLayer()
+local sx,sy = getResolution()
+
+local dataTable = UiTable(layer, 20.0, 20.0, sx - 20.0, sy - 20.0, json.decode(getInput()))
+dataTable.gridLines = true
+dataTable.oddRowColor = ColorRGBA().LightGreen()
+dataTable.evenRowColor = ColorRGBA().LightBlue()
+dataTable.Draw()
+
+requestAnimationFrame(100)
+
+--== end file .\Display1.lua ==--
+

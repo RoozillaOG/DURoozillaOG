@@ -1,9 +1,9 @@
 
 local json = require("dkjson")
 require "./DisplayData.lua"
-require "../Utils/ContainerContents.lua"
+require "../Container/ContainerContents.lua"
 require "../Utils/DuElements.lua"
-require "../Utils/IndustryState.lua"
+require "../Industry/IndustryState.lua"
 
 unit.setTimer("Update", 10)
 OutputContainer1.updateContent()
@@ -24,5 +24,19 @@ displayData = DisplayData(
       )
 
 displayData.Update()
+
+stocker = IndustryStocker(
+    Refiner,
+    OutputContainer1,
+    {
+        AluminiumPure = 1000,
+        CarbonPure = 1000, 
+        IronPure = 1000, 
+        SiliconPure = 1000
+    }
+  )
+
+stocker.Update()
+
 
 
