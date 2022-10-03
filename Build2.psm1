@@ -218,7 +218,7 @@ class PBFile {
 
   [void]UpdatePB()
   {
-    $unitFile = $this.SlotFiles | Where-Object {$_.FileName.Contains("unit.onStart__.1.lua")}
+    $unitFile = $this.SlotFiles | Where-Object {$_.FileName.Contains("unit.onStart__.")}
     # all of the requires go at the top of the unitFile
     $unitFileHeader = ""
     $reqProcessed = @()

@@ -1,6 +1,4 @@
 
-require "./DuElements.lua"
-
 if not ContainerContents then
   ContainerContents = {}
   ContainerContents.__index = ContainerContents
@@ -12,7 +10,9 @@ if not ContainerContents then
     }
 
     for containerIndex, containerValue in pairs(containers) do
-      for itemKey, itemValue in pairs(containers[containerIndex].getContent()) do
+      system.print("Container: " .. containerIndex)
+      for itemKey, itemValue in pairs(containerValue.getContent()) do
+        system.print("item = " .. json.encode(itemValue))
         local itemName = self.resourceMapper.GetDisplayName(itemValue.id)
         if(self.contents[itemName]) then
           self.contents[itemName]["quantity"] = self.contents[itemName].quantity + itemValue.quantity    
