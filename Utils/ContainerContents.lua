@@ -5,17 +5,32 @@ if not ContainerContents then
   ContainerContents = {}
   ContainerContents.__index = ContainerContents
 
-  function ContainerContents(container)
+  function ContainerContents(containers)
     self = {
         contents = {}
     }
         
-    for k, v in pairs(container.getContent()) do
-      self.contents[#self.contents + 1] = {
-        id = v["id"], 
-        name = system.getItem(v["id"])["displayName"], 
-        quantity = v["quantity"]
-      }
+    --system.print(json.encode(container.getContent()))
+    for ck, vc in pairs(containers) do
+      system.print("Container: " .. ck)
+
+      for k, v in pairs(containers[ck].getContent()) do
+        local item = system.getItem(v.id)
+        system.print("  Item = " .. item.name)
+ 
+        if(self.contents[item.name]) then
+          system.print("Updating existing quantity")
+          self.contents[item.name]["quantity"] = self.contents[item.name]["quantity"] + v["quantity"]     
+        else
+          self.contents[item.name] = {
+            displayName = system.getItem(v["id"])["displayName"],
+            id = v["id"], 
+            quantity = v["quantity"]
+          }
+        end
+            
+      --system.print(json.encode(self.contents[#self.contents]))
+      end
     end
 
     function self.GetQuantity(name)

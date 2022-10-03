@@ -149,6 +149,12 @@ class PBSlotFile {
   {
     $requiresFound = @()
     $parts = ($this.Code.Trim() -split "--== start file ")
+    if($parts.Count -eq 1) {
+      Write-Host "Creating new file $($this.FileName)"
+      $this.Code.Trim() | Set-Content $this.FileName
+      return
+    }
+
     foreach($part in ($parts | Where-Object {$_ -ne ""})) {
       $allLines = ($part -join "`n" -split "--== end file")[0]
       if($allLines -match "(?<path>.*?) ==--") {
@@ -165,6 +171,11 @@ class PBSlotFile {
           $cleanedCode | Set-Content -Encoding Ascii -Path $requiresFound[-1]
         }
       }
+    }
+
+    # check if file was renamed
+    if((Get-Item $requiresFound[-1]) -ne (Get-Item $this.FileName)) {
+      Move-Item $requiresFound[-1] $this.FileName
     }
   }
 

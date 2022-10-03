@@ -9,29 +9,39 @@ if not DisplayData then
   DisplayData.__index = DisplayData
 
   ---@param refiner Industry
-  function DisplayData(refiner)
+  function DisplayData(refiner,types)
     local self = {
-      {"RefinerState", IndustryState[refiner.getState()]}
+      refiner = refiner,
+      data = {},
+      types = types or {}
     }
     
-    local inputItem = system.getItem(refiner.getInputs()[1]["id"])
-    local outputItem = system.getItem(refiner.getOutputs()[1]["id"])
-    
-    self[#self + 1] = {"InputName", inputItem["displayName"]}
-    self[#self + 1] = {"OutputName", outputItem["displayName"]}
-    
     function self.Update()
-      local containerData = ContainerContents(OutputContainer1)
-      for k, v in pairs(containerData.GetContents()) do
-        system.print("Data = " .. json.encode(v))
-        displayData[#displayData + 1] = {v["name"],v["quantity"]}
+      self.data = {}
+      self.data[#self.data + 1] = {"RefinerState", IndustryState[self.refiner.getState()]}
+      local inputItem = system.getItem(self.refiner.getInputs()[1]["id"])
+      local outputItem = system.getItem(self.refiner.getOutputs()[1]["id"])
+    
+      self.data[#self.data + 1] = {"InputName", inputItem["displayName"]}
+      self.data[#self.data + 1] = {"OutputName", outputItem["displayName"]}
+            
+      local containerData = ContainerContents({OutputContainer1, OutputContainer2})
+      local contents = containerData.GetContents()
+      
+      --system.print(json.encode(self.types))
+      for k, v in pairs(self.types) do
+        --system.print("Checking type: " .. "\"" .. v .. "\"")
+        --system.print(json.encode(contents))
+        if(contents[v]) then
+          --system.print("Getting Quantity: " .. v)
+          self.data[#self.data + 1] = {v,contents[v]["quantity"]}
+        else
+          self.data[#self.data + 1] = {v,0}
+        end
+                
+        --system.print(json.encode(self.data[#self.data]))
       end
-
-      local containerData = ContainerContents(OutputContainer2)
-      for k, v in pairs(containerData.GetContents()) do
-        displayData[#displayData + 1] = {v["name"],v["quantity"]}
-      end
-      local displayJson = json.encode(displayData)
+      local displayJson = json.encode(self.data)
 
       Display.setScriptInput(displayJson)
     end
