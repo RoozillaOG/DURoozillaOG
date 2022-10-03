@@ -4,38 +4,40 @@ require "./DisplayData.lua"
 require "../Container/ContainerContents.lua"
 require "../Utils/DuElements.lua"
 require "../Industry/IndustryState.lua"
+require "../Utils/PureResources.lua"
 
 unit.setTimer("Update", 10)
-OutputContainer1.updateContent()
-OutputContainer2.updateContent()
-
 unit.setTimer("ContainerUpdate", 31)
 
+resourceMapper = PureResources()
+
 displayData = DisplayData(
-        Refiner, 
-        {
-          AluminiumPure, 
-          CarbonPure, 
-          IronPure, 
-          SiliconPure, 
-          OxygenPure, 
-          HydrogenPure
-        }
-      )
-
-displayData.Update()
-
-stocker = IndustryStocker(
-    Refiner,
-    OutputContainer1,
+    resourceMapper,
+    Refiner, 
     {
-        AluminiumPure = 1000,
-        CarbonPure = 1000, 
-        IronPure = 1000, 
-        SiliconPure = 1000
+      "Pure Aluminum",
+      "Pure Carbon",
+      "Pure Iron",
+      "Pure Silicon",
+      "Pure Hydrogen",
+      "Pure Oxygen"
     }
   )
 
+stocker = IndustryStocker(
+    resourceMapper,
+    Refiner,
+    OutputContainer1,
+    {
+        ["Pure Aluminum"] = 1000,
+        ["Pure Carbon"] = 1000, 
+        ["Pure Iron"] = 1000, 
+        ["Pure Silicon"] = 1000
+    }
+  )
+
+OutputContainer1.updateContent()
+displayData.Update()
 stocker.Update()
 
 

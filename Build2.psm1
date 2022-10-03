@@ -64,8 +64,10 @@ class CodeFile {
     }
 
     # check if file was renamed
-    if((Get-Item $requiresFound[-1]).Name -ne (Get-Item $this.FileName).Name) {
-      Move-Item $requiresFound[-1] $this.FileName
+    if($this.CodeFile.FileName) {
+      if((Get-Item $requiresFound[-1]).Name -ne (Get-Item $this.FileName).Name) {
+        Move-Item $requiresFound[-1] $this.FileName
+      }
     }
   }
 

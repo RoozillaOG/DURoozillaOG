@@ -12,5 +12,4 @@ if not RooUtils then
 
     return self
   end
-
 end

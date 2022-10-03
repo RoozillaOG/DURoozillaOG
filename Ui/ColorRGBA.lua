@@ -1,3 +1,4 @@
+
 if not ColorRGBA then
   ColorRGBA = {}
   ColorRGBA.__index = ColorRGBA
@@ -19,3 +20,5 @@ if not ColorRGBA then
     return self
   end
 end
+
+
