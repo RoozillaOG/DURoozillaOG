@@ -5,16 +5,16 @@ require "../Industry/IndustryState.lua"
 require "../Element/Products.lua"
 require "../Industry/IndustryStocker.lua"
 
-unit.setTimer("Update", 30)
-unit.setTimer("ContainerUpdate", 31)
-
 OutputContainer1.updateContent()
 resourceMapper = Products()
+
+outputContents = ContainerContents(resourceMapper, {OutputContainer1})
+outputContents.Update()
 
 stocker = IndustryStocker(
     resourceMapper,
     Smelter,
-    {OutputContainer1},
+    outputContents,
     {
         ["Steel product"] = 1000,
         ["Al-Fe Alloy product"] = 1000, 

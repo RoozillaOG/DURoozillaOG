@@ -31,7 +31,7 @@ if not DisplayData then
       self.data[#self.data + 1] = {"Uptime", self.refiner.getCycleCountSinceStartup()}
       
       for itemKey, itemValue in pairs(self.types) do
-        self.data[#self.data + 1] = {itemValue, outputContents.GetQuantityForName(itemValue)}
+        self.data[#self.data + 1] = {itemValue, math.floor(outputContents.GetQuantityForName(itemValue))}
       end
 
       local displayJson = json.encode(self.data)

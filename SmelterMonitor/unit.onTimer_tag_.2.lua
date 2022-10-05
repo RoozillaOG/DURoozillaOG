@@ -1,6 +1,6 @@
 
 -- Industry Update --
-OutputContainer1.updateContent()
+stocker.Update()
 
 
 

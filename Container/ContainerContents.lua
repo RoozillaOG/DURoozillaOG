@@ -11,6 +11,7 @@ if not ContainerContents then
     }
 
     function self.Update()
+      self.contents = {}
       for containerIndex, containerValue in pairs(containers) do
         containerValue.updateContent()
         for itemKey, itemValue in pairs(containerValue.getContent()) do

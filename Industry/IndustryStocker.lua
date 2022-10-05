@@ -15,9 +15,12 @@ if not IndustryStocker then
       if(IndustryState[industryUnit.getState()] ~= "Running") then
         for itemName, itemQuantity in pairs(self.itemNameAndRequestedQuantity) do
           local quantity = outputContents.GetQuantityForName(itemName)
-          system.print("Setting product to: " .. itemName)
-          self.industryUnit.setOutput(self.resourceMapper.GetId(itemName))
-          self.industryUnit.startFor(1)
+          if(quantity < self.itemNameAndRequestedQuantity[itemName]) then
+            system.print("Setting product to: " .. itemName)
+            self.industryUnit.setOutput(self.resourceMapper.GetId(itemName))
+            self.industryUnit.stop(true, true)
+            self.industryUnit.startFor(1)
+          end
         end
       end
     end
