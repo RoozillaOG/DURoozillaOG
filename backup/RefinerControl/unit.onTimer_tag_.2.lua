@@ -3,7 +3,6 @@ local json = require("dkjson")
 local displayData = DisplayData(Refiner)
 local containerData = ContainerContents(OutputContainer1)
 for k, v in pairs(containerData.GetContents()) do
-  system.print("Data = " .. json.encode(v))
   displayData[#displayData + 1] = {v["name"],v["quantity"]}
 end
 

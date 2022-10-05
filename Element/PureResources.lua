@@ -66,12 +66,12 @@ if not PureResources then
       if(self.idToData[id]) then
         return self.idToData[id].displayNameWithSize
       end
-            
+         
       local item = system.getItem(id)
       if(item and item.displayNameWithSize) then
         return item.displayNameWithSize
       end
-    
+
       return ""
     end
 

@@ -1,5 +1,4 @@
-
-OutputContainer1.updateContent()
+outputContents.Update()
 stocker.Update()
 
 

@@ -323,3 +323,81 @@ function Invoke-DisplayConstruct(
     $displayFile.Code | Set-Content -Encoding Ascii -Path $mergedFileName
   }
 }
+
+function ConvertTo-LuaTable(
+  [Parameter(Mandatory=$true)][string]$Name,
+  [string]$Path,
+  [switch]$FromClipboard,
+  [switch]$ToClipboard)
+{
+  $data = $null
+  if($FromClipboard) {
+    $data = (Get-Clipboard) | ConvertFrom-Json
+  }
+  elseif($Path) 
+  {
+    $data = Get-Contents -Path $Path
+  }
+  else {
+    Write-Host "Need to specify a path or -FromClipboard"
+    return 1
+  }
+
+  $lua = @"
+
+if not ${Name} then
+  ${Name} = {}
+  ${Name}.__index = ${Name}
+
+  function ${Name}()
+    local self = {
+      idToDisplayName = {
+$(
+  foreach($item in $data) {
+    @"
+        [$($item.id)] = { id = $($item.id), displayNameWithSize = "$($item.displayNameWithSize)" },
+
+"@
+  }
+)
+      },
+      displayNameToId = {
+$(
+  foreach($item in $data) {
+    @"
+        [$($item.displayNameWithSize)] = { id = $($item.id), displayNameWithSize = "$($item.displayNameWithSize)" },
+
+"@
+  }
+)
+      }
+    }
+
+    function self.GetId(displayName)
+      if(self.displayNameToId[displayName]) then
+        return self.displayNameToId[displayName].id
+      end
+      return -1
+    end
+
+    function self.GetDisplayName(id)
+      if(self.idToDisplayName[id]) then
+        return self.idToDisplayName[id].displayNameWithSize
+      end
+
+      local item = system.getItem(id)
+      if(item and item.displayNameWithSize) then
+        system.print("PureResources::GetDisplayName(" .. id .. ") had to bail back to system call for " .. item.displayNameWithSize)
+        return item.displayNameWithSize
+      end
+
+      system.print("PureResource::GetDisplayName(" .. id .. ") failed to get name")
+      return ""
+    end
+  end
+end
+
+"@
+
+    $lua
+}

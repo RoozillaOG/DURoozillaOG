@@ -1,7 +1,7 @@
 
 if not DUDebug then
   function print(message)
-    if(DebugFlag) then
+    if(DebugPrint) then
       system.print(message)
     end
   end

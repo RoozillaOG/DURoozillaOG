@@ -20,9 +20,7 @@ if not DisplayData then
     self[#self + 1] = {"OutputName", outputItem["displayName"]}
     
     function self.Update()
-      local containerData = ContainerContents(OutputContainer1)
       for k, v in pairs(containerData.GetContents()) do
-        system.print("Data = " .. json.encode(v))
         displayData[#displayData + 1] = {v["name"],v["quantity"]}
       end
 
