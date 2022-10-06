@@ -271,7 +271,7 @@ function Invoke-PBDeconstruct(
   [switch]$Overwrite)
 {
   if($FromClipboard) {
-    $pb = [PBFile]::FromString((Get-Clipboard))
+    $pb = [PBFile]::FromString((Get-Clipboard) -join "`n")
   }
   else {
     $pb = [PBFile]::FromFile($Path)
@@ -300,7 +300,7 @@ function Invoke-DisplayDeconstruct(
   [switch]$FromClipboard)
 {
   if($FromClipboard) {
-    $displayFile = [DisplayFile]::FromString((Get-Clipboard))
+    $displayFile = [DisplayFile]::FromString((Get-Clipboard) -join "`n")
   }
   else {
     $displayFile = [DisplayFile]::FromFile($Path)
