@@ -13,7 +13,7 @@ if not DataRow then
       }
     }
 
-    function self.AddCell(cell)
+    function self.AddCell(cell) 
       self.data.cells[#self.data.cells + 1] = cell
     end
 

@@ -18,7 +18,7 @@ if not DisplayData then
     function self.Update()
       local displayData = {}
 
-      system.print("DisplayData.Update()")
+      system.print("-----DisplayData.Update()")
       local keys = self.dataBank.getKeyList()
       system.print("Keys = " .. json.encode(keys))
       for k, v in pairs(keys) do

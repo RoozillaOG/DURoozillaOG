@@ -19,7 +19,7 @@ if not DataGrid then
 
     function self.NumColumns()
       if(#self.data.rows > 0) then
-        return self.data.rows[1].NumCells()
+        return self.data.rows[0].NumCells()
       end
 
       return 0
@@ -29,14 +29,9 @@ if not DataGrid then
       if(#self.data.rows > 0) then
         return #self.data.rows
       end
-
       return 0
     end
-        
-    function self.GetRows()
-      return self.data.rows
-    end
-        
+
     function self.Encode()
       return self.data.rows.Encode()
     end
