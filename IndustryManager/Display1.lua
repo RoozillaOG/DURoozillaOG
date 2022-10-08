@@ -1,5 +1,5 @@
 
-require "../Ui/UiTable2.lua"
+require "../Ui/UiTable.lua"
 
 local json = require("dkjson")
 

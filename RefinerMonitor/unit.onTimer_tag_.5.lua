@@ -1,5 +1,0 @@
-
-outputContents.Update()
-stocker.Update()
-
-

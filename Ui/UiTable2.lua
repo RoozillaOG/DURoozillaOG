@@ -1,10 +1,13 @@
 
 require "./ColorRGBA.lua"
+require "./DataCell.lua"
+require "./DataRow.lua"
+
 local json = require("dkjson") 
 
-if not UiTable then
-  UiTable = {}
-  UiTable.__index = UiTable
+if not UiTable2 then
+  UiTable2 = {}
+  UiTable2.__index = UiTable2
 
   ---@param layer any The layer to draw to
   ---@param sx number Starting x location of table
@@ -12,20 +15,20 @@ if not UiTable then
   ---@param ex number Ending x location of table 
   ---@param ey number Ending y location of table
   ---@param data table A table of rows containing a table of columns to dislay in the table
-  function UiTable(layer, sx, sy, ex, ey, data)
+  function UiTable2(layer, sx, sy, ex, ey, dataGrid, fontname)
     local self = {
       sx = sx or 0.0,
       sy = sy or 0.0,
       ex = ex or 0.0,
       ey = ey or 0.0,
-      data = data or nil,
+      dataGrid = dataGrid or nil,
       gridLines = false,
       evenRowColor = nil,
       oddRowColor = nil,
       spacingInPixels = 5,
       pixelsPerFontSize = 1.0,
       maxRowSize = 50,
-      fontName = "Play",
+      fontName = fontname or "Play",
       fontColor = ColorRGBA().White()
     }
         
@@ -38,7 +41,8 @@ if not UiTable then
     self.pixelsPerFontSize = (100 - 50) / (getFontSize(fontTwo) - getFontSize(fontOne))
 
     function self.Draw()
-      local numRows = #data
+      local numRows = self.dataGrid.NumRows()
+
       local rowHeightInPixels = (ey - sy) / numRows
       if(rowHeightInPixels > self.maxRowSize) then
         rowHeightInPixels = self.maxRowSize
@@ -49,39 +53,37 @@ if not UiTable then
 
       local font = loadFont(self.fontName, fontSize)
       local cy = sy
-      local numColumns = #(self.data[1])
+      local numColumns = #(self.dataGrid.NumColumns())
       local colWidth = (ex - sx) / numColumns
       local rowNumOdd = true
-      for k, v in pairs(self.data) do
+      for kRow, vRow in pairs(self.data.Grid.GetRows()) do
         local cx = sx
-        for i= 1, numColumns do
-          if (rowNumOdd == true) then
-            if (self.oddRowColor ~= nil) then
-              setNextFillColor(layer, self.oddRowColor.r, self.oddRowColor.g, self.oddRowColor.b, self.oddRowColor.a)
-              addBox(layer, cx, cy, colWidth, rowHeightInPixels)
-            end
-          end
-                    
-          if (rowNumOdd == false) then
-            if (self.evenRowColor) then
-              setNextFillColor(layer, self.evenRowColor.r, self.evenRowColor.g, self.evenRowColor.b, self.evenRowColor.a)
-              addBox(layer, cx, cy, colWidth, rowHeightInPixels)
-            end
-          end
-          
-          setNextTextAlign(layer, AlignH_Left, AlignV_Top)
-          setNextStrokeColor(layer, self.fontColor.r, self.fontColor.g, self.fontColor.b, self.fontColor.a)
-          addText(layer, font, v[i], cx, cy)
+        for kCell, vCell in pairs(vRow.GetCells()) do
+          vCell.Draw(layer, vCell, font, cx, cy, colWidth, rowHeightInPixels)
           cx = cx + colWidth
         end
-
         cy = cy + rowHeightInPixels
-        if(rowNumOdd == true) then
-          rowNumOdd = false
-        else
-          rowNumOdd = true
-        end
       end
+    end
+
+    function self.DrawCell(layer, cell, font, sx, sy, width, height)
+      local status = cell.GetStatus()
+      local fillColor = ColorRGBABlack
+
+      if(status == UiCellStatusGood) then
+        fillColor = ColorRGBALightGreen      
+      elseif(status == UiCellStatusWarning) then
+        fillColor = ColorRGBALightYellow
+      elseif(status == UiCellStatusAlert) then
+        fillColor = ColorRGBALightRed
+      end
+      
+      setNextFillColor(layer, fillColor.r, fillColor.g, fillColor.b, fillColor.a)
+      addBox(layer, sx, sy, width, height)
+  
+      setNextTextAlign(layer, AlignH_Left, AlignV_Top)
+      setNextStrokeColor(layer, ColorRGBAWhite.r, ColorRGBAWhite.g, ColorRGBAWhite.b, ColorRGBAWhite.a)
+      addText(layer, font, cell.GetText(), sx, sy)
     end
 
     return self

@@ -13,7 +13,6 @@ utils.hitTest()
 setNextTextAlign(layer, AlignH_Center, AlignV_Middle)
 addText(layer, font, "Hi", sx*0.5, sy*0.3)
 
-logMessage(json)
 
 --------------------------
 

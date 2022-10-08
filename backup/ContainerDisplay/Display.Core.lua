@@ -8,11 +8,7 @@ local sx,sy = getResolution()
 
 setNextTextAlign(layer, AlignH_Left, AlignV_Top)
 
-logMessage("Container Contents")
 local items = json.decode(getInput())
-for key, value in pairs(items) do
-  logMessage(key, " -- ", value)
-end
 
 --addText(layer, font, items, 0.0, 0.0)
 

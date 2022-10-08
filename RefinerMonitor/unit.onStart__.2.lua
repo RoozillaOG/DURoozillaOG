@@ -5,20 +5,22 @@ require "../Container/ContainerContents.lua"
 require "../Industry/IndustryState.lua"
 require "../Element/PureResources.lua"
 require "../Industry/IndustryStocker.lua"
+require "../Utils/DUDebug.lua"
 
 unit.setTimer("Update", 30)
 unit.setTimer("ContainerUpdate", 31)
 
-OutputContainer1.updateContent()
+sOutputContainer.updateContent()
 resourceMapper = PureResources()
 
 -- wrapper around output containers
-outputContents = ContainerContents(resourceMapper, {OutputContainer1})
+outputContents = ContainerContents(resourceMapper, {sOutputContainer})
 outputContents.Update()
 
 displayData = DisplayData(
+    sDisplay,
     resourceMapper,
-    Refiner,
+    sRefiner,
     outputContents,
     {
       "Pure Aluminium",
@@ -31,8 +33,9 @@ displayData = DisplayData(
   )
 
 stocker = IndustryStocker(
+    "Refiner",
     resourceMapper,
-    Refiner,
+    sRefiner,
     outputContents,
     {
         ["Pure Aluminium"] = 1000,
@@ -41,6 +44,20 @@ stocker = IndustryStocker(
         ["Pure Silicon"] = 1000
     }
   )
+
+monitor = IndustryMonitor(
+  "Refiner",
+  resourceMapper,
+  sRefiner,
+  outputContents,
+  {
+      ["Pure Aluminium"] = 1000,
+      ["Pure Carbon"] = 1000, 
+      ["Pure Iron"] = 1000, 
+      ["Pure Silicon"] = 1000
+  },
+  sDataBank
+)
 
 displayData.Update()
 stocker.Update()

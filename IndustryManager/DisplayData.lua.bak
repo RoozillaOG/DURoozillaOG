@@ -36,7 +36,6 @@ if not DisplayData then
       end
 
       local displayJson = json.encode(self.data)
-      DebugPrint("Refiner.Update(): " .. displayJson)
       display.setScriptInput(displayJson)
     end
 

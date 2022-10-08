@@ -1,10 +1,12 @@
+require "../Utils/DUDebug.lua"
 
 if not IndustryStocker then
   IndustryStocker = {}
   IndustryStocker.__index = IndustryStocker
 
-  function IndustryStocker(resourceMapper, industryUnit, outputContents, items)
+  function IndustryStocker(name, resourceMapper, industryUnit, outputContents, items)
     local self = {
+      name = name,
       industryUnit = industryUnit,
       itemNameAndRequestedQuantity = items,
       outputContents = outputContents,
@@ -12,15 +14,20 @@ if not IndustryStocker then
     }
         
     function self.Update()
-      if(IndustryState[industryUnit.getState()] ~= "Running") then
+      if(IndustryState[self.industryUnit.getState()] ~= "Running") then
         for itemName, itemQuantity in pairs(self.itemNameAndRequestedQuantity) do
           local quantity = outputContents.GetQuantityForName(itemName)
-          system.print("Setting product to: " .. itemName)
-          self.industryUnit.setOutput(self.resourceMapper.GetId(itemName))
-          self.industryUnit.startFor(1)
+          local requested = self.itemNameAndRequestedQuantity[itemName]
+          DebugPrint(self.name .. ": quantity(" .. quantity .. ") < requested(" .. requested .. ")")
+          if(quantity < requested) then
+            DebugPrint(self.name .. ": Setting product to: " .. itemName)
+            self.industryUnit.setOutput(self.resourceMapper.GetId(itemName))
+            self.industryUnit.startFor(1)
+          end
         end
       end
     end
+
     return self
   end
 end
