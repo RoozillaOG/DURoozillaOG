@@ -51,6 +51,9 @@ class CodeFile {
         $lines = $allLines -split "\n" | Select-String -NotMatch " ==--"
         $cleanedCode = $lines -join "`n"
         $cleanedCode = $cleanedCode -replace "--==require","require"
+        if(-not (Test-Path -Path $Matches.path)) {
+          New-Item -ItemType File $Matches.path
+        }
         $requiresFound += Resolve-Path -Path $Matches.path -Relative
         Write-Host "Writing $($Matches.path)"
         Write-Host " - With relative path $($requiresFound[-1])"
