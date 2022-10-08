@@ -205,7 +205,7 @@ class PBFile {
   }
 
   [void]WriteSlotFiles(
-    [bool]$Overwrite)
+    [bool]$Overwrite = $true)
   {
     $this.SlotFiles.Write($Overwrite)
   }
@@ -268,16 +268,17 @@ $($unitFile.Code)
 function Invoke-PBDeconstruct(
   [string]$Path = "./PB.json",
   [switch]$FromClipboard,
-  [switch]$Overwrite)
+  [bool]$Overwrite = $true)
 {
   if($FromClipboard) {
+    Get-Clipboard | Set-Content $Path
     $pb = [PBFile]::FromString((Get-Clipboard) -join "`n")
   }
   else {
     $pb = [PBFile]::FromFile($Path)
   }
 
-  $pb.WriteSlotFiles($Overwrite.IsPresent)
+  $pb.WriteSlotFiles($Overwrite)
 }
 
 function Invoke-PBConstruct(
@@ -289,6 +290,7 @@ function Invoke-PBConstruct(
   $json = $pb.PBContents | ConvertTo-Json -Depth 10 -Compress
   if($ToClipboard) {
     $json | Set-Clipboard
+    $json | Set-Content $Path
   }
   else {
     $json | Set-Content $Path
@@ -317,6 +319,8 @@ function Invoke-DisplayConstruct(
 
   if($ToClipboard) {
     $displayFile.Code | Set-Clipboard
+    $mergedFileName = $Path -replace ".lua",".Merged.lua"
+    $displayFile.Code | Set-Content -Encoding Ascii -Path $mergedFileName
   }
   else {
     $mergedFileName = $Path -replace ".lua",".Merged.lua"

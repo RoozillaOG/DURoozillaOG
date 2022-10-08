@@ -36,9 +36,12 @@ if not IndustryMonitor then
         end
 
         local outputs = self.industryUnit.getOutputs()
-        DebugPrint("Output: " .. json.encode(system.getItem(outputs[1].id).displayName))
-        data.product = system.getItem(outputs[1].id).displayName
-
+        if(#outputs > 0) then
+          DebugPrint("Output: " .. json.encode(system.getItem(outputs[1].id).displayName))
+          data.product = system.getItem(outputs[1].id).displayName
+        else
+          data.product = "None"
+        end
         local jsonRow = json.encode(data)
         DebugPrint(self.name .. ".info = " .. jsonRow)
         self.dataBank.setStringValue(("Industry" .. self.name .. ".info"), jsonRow)

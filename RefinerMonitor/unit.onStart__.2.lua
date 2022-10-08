@@ -6,6 +6,7 @@ require "../Industry/IndustryState.lua"
 require "../Element/PureResources.lua"
 require "../Industry/IndustryStocker.lua"
 require "../Utils/DUDebug.lua"
+require "../Industry/IndustryMonitor.lua"
 
 unit.setTimer("Update", 30)
 unit.setTimer("ContainerUpdate", 31)
@@ -47,15 +48,7 @@ stocker = IndustryStocker(
 
 monitor = IndustryMonitor(
   "Refiner",
-  resourceMapper,
   sRefiner,
-  outputContents,
-  {
-      ["Pure Aluminium"] = 1000,
-      ["Pure Carbon"] = 1000, 
-      ["Pure Iron"] = 1000, 
-      ["Pure Silicon"] = 1000
-  },
   sDataBank
 )
 

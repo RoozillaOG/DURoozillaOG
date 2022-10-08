@@ -4,6 +4,7 @@ require "../Container/ContainerContents.lua"
 require "../Industry/IndustryState.lua"
 require "../Element/Products.lua"
 require "../Industry/IndustryStocker.lua"
+require "../Industry/IndustryMonitor.lua"
 
 sOutputContainer.updateContent()
 resourceMapper = Products()
@@ -25,17 +26,11 @@ stocker = IndustryStocker(
 
 monitor = IndustryMonitor(
     "Smelter",
-    resourceMapper,
     sSmelter,
-    outputContents,
-    {
-        ["Steel product"] = 1000,
-        ["Al-Fe Alloy product"] = 1000, 
-        ["Silumin Product"] = 1000
-    },
     sDataBank
   )
 
+monitor.Update()
 stocker.Update()
 
 unit.setTimer("ContainerUpdate", 31)
