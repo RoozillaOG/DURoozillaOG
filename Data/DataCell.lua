@@ -1,4 +1,3 @@
-require "./ColorRGBA.lua"
 
 if not DataCell then
   DataCell = {}
@@ -33,3 +32,5 @@ if not DataCell then
     return self
   end
 end
+
+

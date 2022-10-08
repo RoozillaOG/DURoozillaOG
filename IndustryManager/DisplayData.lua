@@ -1,9 +1,7 @@
 
 local json = require("dkjson")
 require "../Mock/industry.lua"
-require "../Data/DataGrid.lua"
-require "../Data/DataRow.lua"
-require "../Data/DataCell.lua"
+require "../Industry/IndustryData.lua"
 
 if not DisplayData then
   DisplayData = {}
@@ -18,11 +16,14 @@ if not DisplayData then
     }
     
     function self.Update()
-      local data = {}
       local dataGrid = DataGrid()
-      if(self.dataBank.hasKey("Refiner.info")) then
-        obj = json.decode(self.dataBank.getStringValue("Refiner.info"))
-        dataGrid.AddFromRowData(obj)
+
+      local keys = self.dataBank.getKeys()
+      for k, v in pairs(keys) do
+        if(string.match(v, "Industry.")) then
+          local data = self.dataBand.getStringValue(v)
+          DebugPrint(v .. " = " .. json.encode(data))
+        end
       end
 
       local displayJson = json.encode(data)

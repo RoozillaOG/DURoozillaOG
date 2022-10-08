@@ -1,21 +1,12 @@
 
 require "../Utils/DUDebug.lua"
-require "../Industry/IndustryState.lua"
+require "../Data/DataCell.lua"
+require "./IndustryData.lua"
+require "./IndustryState.lua"
 
 if not IndustryMonitor then
   IndustryMonitor = {}
   IndustryMonitor.__index = IndustryMonitor
-
-  function IndustryData()
-    local self = {
-      name = "",
-      status = "",
-      product = "",
-      notification = ""
-    }
-    
-    return self
-  end
 
   function IndustryMonitor(name, industryUnit, dataBank)
     local self = {
@@ -34,13 +25,14 @@ if not IndustryMonitor then
         DebugPrint(self.name .. ": info: " .. json.encode(info))
 
         data.name = self.name
-        data.state = IndustryState[self.industryUnit.getState()]
-        if(data.state == "running") then
+        DebugPrint("state: " .. json.encode(self.industryUnit.getState()))
+        data.status = IndustryState[self.industryUnit.getState()]
+        if(data.status == "Running") then
           data.notification = DataCellStatusGood
-        elseif(data.state == "stopped") then
-          data.state = DataCellStatusNormal
+        elseif(data.status == "Stopped") then
+          data.notification = DataCellStatusNormal
         else
-          data.state = DataCellStatusNormal
+          data.notification = DataCellStatusAlert
         end
 
         local outputs = self.industryUnit.getOutputs()
@@ -49,7 +41,7 @@ if not IndustryMonitor then
 
         local jsonRow = json.encode(data)
         DebugPrint(self.name .. ".info = " .. jsonRow)
-        self.dataBank.setStringValue((self.name .. ".info"), jsonRow)
+        self.dataBank.setStringValue(("Industry" .. self.name .. ".info"), jsonRow)
       end
     end
 
