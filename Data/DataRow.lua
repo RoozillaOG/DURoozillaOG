@@ -1,19 +1,20 @@
-require "./UiCell.lua"
+
+require "./DataCell.lua"
 json = require("dkjson")
 
-if not UiRow then
-  UiRow = {}
-  UiRow.__index = UiRow
+if not DataRow then
+  DataRow = {}
+  DataRow.__index = DataRow
 
-  function UiRow(cells)
+  function DataRow(cells)
     local self = {
       ["data"] = {
         cells = cells or {}
       }
     }
 
-    function self.AddCell(cell) 
-      self.cells[#self.data.cells + 1] = cell
+    function self.AddCell(cell)
+      self.data.cells[#self.data.cells + 1] = cell
     end
 
     function self.NumCells()
@@ -33,3 +34,5 @@ if not UiRow then
     return self
   end
 end
+
+

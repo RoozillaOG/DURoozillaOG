@@ -1,11 +1,12 @@
-require "./UiRow.lua"
-require "./UiCell.lua"
 
-if not UiDataGrid then
-  UiDataGrid = {}
-  UiDataGrid.__index = UiDataGrid
+require "./DataRow.lua"
+require "./DataCell.lua"
 
-  function UiDataGrid(rows)
+if not DataGrid then
+  DataGrid = {}
+  DataGrid.__index = DataGrid
+
+  function DataGrid(rows)
     self = {
       ["data"] = {
         rows = rows or {}
@@ -17,13 +18,25 @@ if not UiDataGrid then
     end
 
     function self.NumColumns()
-      if(#self.rows > 0) then
-        return self.data.rows[0].NumCells()
+      if(#self.data.rows > 0) then
+        return self.data.rows[1].NumCells()
       end
 
       return 0
     end
+        
+    function self.NumRows()
+      if(#self.data.rows > 0) then
+        return #self.data.rows
+      end
 
+      return 0
+    end
+        
+    function self.GetRows()
+      return self.data.rows
+    end
+        
     function self.Encode()
       return self.data.rows.Encode()
     end
@@ -48,3 +61,5 @@ if not UiDataGrid then
     return self
   end
 end
+
+

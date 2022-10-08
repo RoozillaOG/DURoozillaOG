@@ -1,8 +1,8 @@
 
 require "./ColorRGBA.lua"
-require "./DataCell.lua"
-require "./DataRow.lua"
-
+require "../Data/DataGrid.lua"
+require "../Data/DataCell.lua"
+require "../Data/DataRow.lua"
 local json = require("dkjson") 
 
 if not UiTable2 then
@@ -27,8 +27,8 @@ if not UiTable2 then
       oddRowColor = nil,
       spacingInPixels = 5,
       pixelsPerFontSize = 1.0,
-      maxRowSize = 50,
-      fontName = fontname or "Play",
+      maxRowSize = 30,
+      fontName = fontname or "RefrigeratorDeluxe",
       fontColor = ColorRGBA().White()
     }
         
@@ -53,13 +53,13 @@ if not UiTable2 then
 
       local font = loadFont(self.fontName, fontSize)
       local cy = sy
-      local numColumns = #(self.dataGrid.NumColumns())
+      local numColumns = self.dataGrid.NumColumns()
       local colWidth = (ex - sx) / numColumns
       local rowNumOdd = true
-      for kRow, vRow in pairs(self.data.Grid.GetRows()) do
+      for kRow, vRow in pairs(self.dataGrid.GetRows()) do
         local cx = sx
         for kCell, vCell in pairs(vRow.GetCells()) do
-          vCell.Draw(layer, vCell, font, cx, cy, colWidth, rowHeightInPixels)
+          self.DrawCell(layer, vCell, font, cx, cy, colWidth, rowHeightInPixels)
           cx = cx + colWidth
         end
         cy = cy + rowHeightInPixels
@@ -67,14 +67,15 @@ if not UiTable2 then
     end
 
     function self.DrawCell(layer, cell, font, sx, sy, width, height)
-      local status = cell.GetStatus()
+      local notification = cell.GetNotification()
       local fillColor = ColorRGBABlack
 
-      if(status == UiCellStatusGood) then
+      logMessage("Notification: " .. DataCellStatusAlert .. " = " .. json.encode(notification))
+      if(notification == DataCellStatusGood) then
         fillColor = ColorRGBALightGreen      
-      elseif(status == UiCellStatusWarning) then
+      elseif(notification == DataCellStatusWarning) then
         fillColor = ColorRGBALightYellow
-      elseif(status == UiCellStatusAlert) then
+      elseif(notification == DataCellStatusAlert) then
         fillColor = ColorRGBALightRed
       end
       
@@ -83,6 +84,7 @@ if not UiTable2 then
   
       setNextTextAlign(layer, AlignH_Left, AlignV_Top)
       setNextStrokeColor(layer, ColorRGBAWhite.r, ColorRGBAWhite.g, ColorRGBAWhite.b, ColorRGBAWhite.a)
+      logMessage("Cell " .. json.encode(cell.GetData()))
       addText(layer, font, cell.GetText(), sx, sy)
     end
 

@@ -16,17 +16,20 @@ if not DisplayData then
     }
     
     function self.Update()
-      local dataGrid = DataGrid()
+      local displayData = {}
 
-      local keys = self.dataBank.getKeys()
+      system.print("DisplayData.Update()")
+      local keys = self.dataBank.getKeyList()
+      system.print("Keys = " .. json.encode(keys))
       for k, v in pairs(keys) do
+        system.print("Key " .. v)
         if(string.match(v, "Industry.")) then
-          local data = self.dataBand.getStringValue(v)
-          DebugPrint(v .. " = " .. json.encode(data))
+          local data = self.dataBank.getStringValue(v)
+          displayData[#displayData + 1] = data
         end
       end
 
-      local displayJson = json.encode(data)
+      local displayJson = json.encode(displayData)
       display.setScriptInput(displayJson)
     end
 

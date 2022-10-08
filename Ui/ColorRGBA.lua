@@ -3,12 +3,6 @@ if not ColorRGBA then
   ColorRGBA = {}
   ColorRGBA.__index = ColorRGBA
 
-  ColorRGBALightGreen = ColorRGBA(0.0, 0.3, 0.0, 0.3)
-  ColorRGBALightRed = ColorRGBA(0.3, 0.0, 0.0, 0.3)
-  ColorRGBALightBlue = ColorRGBA(0.0, 0.0, 0.3, 0.3)
-  ColorRGBALightYellow = ColorRGBA(0.9, 0.7, 0.0, 0.3)
-  ColorRGBAWhite = ColorRGBA(0.7, 0.7, 0.7, 0.8)
-  ColorRGBABlack = ColorRGBA(0.0, 0.0, 0.0, 0.8) 
 
   function ColorRGBA(r, g, b, a)
     local self = {
@@ -26,6 +20,14 @@ if not ColorRGBA then
 
     return self
   end
+    
+
+  ColorRGBALightGreen = ColorRGBA(0.0, 0.3, 0.0, 0.3)
+  ColorRGBALightRed = ColorRGBA(0.3, 0.0, 0.0, 0.3)
+  ColorRGBALightBlue = ColorRGBA(0.0, 0.0, 0.3, 0.3)
+  ColorRGBALightYellow = ColorRGBA(0.9, 0.7, 0.0, 0.3)
+  ColorRGBAWhite = ColorRGBA(0.7, 0.7, 0.7, 0.8)
+  ColorRGBABlack = ColorRGBA(0.0, 0.0, 0.0, 0.8) 
 end
 
 
