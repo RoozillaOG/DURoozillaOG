@@ -13,8 +13,8 @@ if not DataRow then
       }
     }
 
-    function self.AddCell(cell)
-      self.data.cells[#self.data.cells + 1] = cell
+    function self.AddCell(cell) 
+      self.cells[#self.data.cells + 1] = cell
     end
 
     function self.NumCells()

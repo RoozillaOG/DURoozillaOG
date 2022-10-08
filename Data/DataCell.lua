@@ -1,4 +1,3 @@
-local json = require("dkjson") 
 
 if not DataCell then
   DataCell = {}
@@ -10,22 +9,20 @@ if not DataCell then
   DataCellStatusGood = "Good"
 
   --@param status string one of Normal, Warning, Alert
-  function DataCell(text, notification)
+  function DataCell(text, status)
     local self = {
       ["data"] = {
-        text = text or "",
-        notification = notification or DataCellStatusNormal
+        text = text,
+        status = status or DataCellStatusNormal
       }
     }
-        
-    logMessage("Data = " .. json.encode(self.data))
 
     function self.GetText()
       return self.data.text
     end
 
-    function self.GetNotification()
-      return self.data.notification
+    function self.GetStatus()
+      return self.data.status
     end
 
     function self.GetData()
