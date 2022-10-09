@@ -27,9 +27,10 @@ if not IndustryMonitor then
         data.name = self.name
         DebugPrint("state: " .. json.encode(self.industryUnit.getState()))
         data.status = self.industryUnit.getState()
-        if(data.status == "Running") then
+        local statusString = IndustryState[data.status]
+        if(statusString == "Running") then
           data.notification = DataCellStatusGood
-        elseif(data.status == "Stopped") then
+        elseif(statusString == "Stopped") then
           data.notification = DataCellStatusNormal
         else
           data.notification = DataCellStatusAlert

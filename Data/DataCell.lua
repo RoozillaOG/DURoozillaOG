@@ -9,11 +9,11 @@ if not DataCell then
   DataCellStatusGood = 4
 
   --@param status string one of Normal, Warning, Alert
-  function DataCell(text, status)
+  function DataCell(text, notification)
     local self = {
       ["data"] = {
-        text = text,
-        status = status or DataCellStatusNormal
+        text = text or "",
+        notification = notification or DataCellStatusNormal
       }
     }
 
@@ -23,6 +23,10 @@ if not DataCell then
 
     function self.GetStatus()
       return self.data.status
+    end
+        
+    function self.GetNotification()
+      return self.data.notification
     end
 
     function self.GetData()

@@ -7,7 +7,7 @@ if not IndustryState then
    [4] = "Ouptut Full",
    [5] = "No Output Container",
    [6] = "Pending",
-   [7] = "Missing Schematic"
+   [7] = "Missing Schematic" 
   }
 end
 

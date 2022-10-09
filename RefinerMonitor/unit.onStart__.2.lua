@@ -46,12 +46,6 @@ stocker = IndustryStocker(
     }
   )
 
-monitor = IndustryMonitor(
-  "Refiner",
-  sRefiner,
-  sDataBank
-)
-
 displayData.Update()
 stocker.Update()
 

@@ -24,9 +24,10 @@ if not IndustryData then
     for kRow, vRow in pairs(data) do
       local row = DataRow()
       local rowData = json.decode(vRow)
-      row.AddCell(DataCell(rowData.name, IndustryState[rowData.notification]))
-      row.AddCell(DataCell(rowData.status, IndustryState[rowData.notification]))
-      row.AddCell(DataCell(rowData.product, IndustryState[rowData.notification]))
+      logMessage("Rowdata notification: " .. rowData.notification)
+      row.AddCell(DataCell(rowData.name, rowData.notification))
+      row.AddCell(DataCell(IndustryState[rowData.status], rowData.notification))
+      row.AddCell(DataCell(rowData.product, rowData.notification))
       dataGrid.AddRow(row)
     end
     return dataGrid

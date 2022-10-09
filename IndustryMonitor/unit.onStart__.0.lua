@@ -4,38 +4,50 @@ require "../Industry/IndustryMonitor.lua"
 monitors = {}
 
 monitors[#monitors + 1] = IndustryMonitor(
-    "Metalworks",
+    "BMetalworks",
     sMetalWorks,
     sDataBank
   )
 
 monitors[#monitors + 1] = IndustryMonitor(
-    "Metalworks2",
+    "BMetalworks2",
     sMetalWorks2,
     sDataBank
   )
 
 monitors[#monitors + 1] = IndustryMonitor(
-    "s3DPrinter1",
+    "B3DPrinter1",
     s3DPrinter1,
     sDataBank
   )
 
 monitors[#monitors + 1] = IndustryMonitor(
-    "BasicAssemblyS1",
+    "BAssemblyS1",
     sBasicAssemblyS1,
     sDataBank
   )
 
 monitors[#monitors + 1] = IndustryMonitor(
-    "BasicAssemblyM1",
+    "BAssemblyM1",
     sBasicAssemblyM1,
     sDataBank
   )
 
 monitors[#monitors + 1] = IndustryMonitor(
-    "BasicAssemblyL1",
+    "BAssemblyL1",
     sBasicAssemblyL1,
+    sDataBank
+  )
+
+monitors[#monitors + 1] = IndustryMonitor(
+    "BSmelter1",
+    sSmelter,
+    sDataBank
+  )
+
+monitors[#monitors + 1] = IndustryMonitor(
+    "BRefiner1",
+    sRefiner,
     sDataBank
   )
 

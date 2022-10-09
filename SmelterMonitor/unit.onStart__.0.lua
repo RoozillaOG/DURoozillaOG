@@ -24,13 +24,6 @@ stocker = IndustryStocker(
     }
   )
 
-monitor = IndustryMonitor(
-    "Smelter",
-    sSmelter,
-    sDataBank
-  )
-
-monitor.Update()
 stocker.Update()
 
 unit.setTimer("ContainerUpdate", 31)
