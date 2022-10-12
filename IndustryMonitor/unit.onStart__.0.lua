@@ -40,14 +40,20 @@ monitors[#monitors + 1] = IndustryMonitor(
   )
 
 monitors[#monitors + 1] = IndustryMonitor(
+    "BElectronics1",
+    sBasicElectronics1,
+    sDataBank
+  )
+
+monitors[#monitors + 1] = IndustryMonitor(
     "BSmelter1",
-    sSmelter,
+    sBasicSmelter1,
     sDataBank
   )
 
 monitors[#monitors + 1] = IndustryMonitor(
     "BRefiner1",
-    sRefiner,
+    sBasicRefiner1,
     sDataBank
   )
 

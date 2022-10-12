@@ -16,11 +16,16 @@ if not IndustryStocker then
         
     function self.Update()
       if(IndustryState[self.industryUnit.getState()] ~= "Running") then
+        local current = nil
+        if(self.industryUnit.getOutputs()[1]) then
+          current = system.getItem(self.industryUnit.getOutputs()[1].id).displayName
+        end
+        self.industryUnit.stop(true, true)
         for itemName, itemQuantity in pairs(self.itemNameAndRequestedQuantity) do
           local quantity = outputContents.GetQuantityForName(itemName)
           local requested = self.itemNameAndRequestedQuantity[itemName]
-          DebugPrint(self.name .. ": quantity(" .. quantity .. ") < requested(" .. requested .. ")")
-          if(quantity < requested) then
+          DebugPrint(self.name .. ": quantity(" .. quantity .. ") < requested(" .. requested .. ")" .. " " .. itemName .. " ~= " .. current)
+          if(quantity < requested and current ~= itemName) then
             DebugPrint(self.name .. ": Setting product to: " .. itemName)
             self.industryUnit.setOutput(self.resourceMapper.GetId(itemName))
             self.industryUnit.startFor(1)

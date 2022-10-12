@@ -16,9 +16,7 @@ if not IndustryMonitor then
     }
         
     function self.Update()
-      system.print("Metalworks: Update()")
       if(self.dataBank) then
-        system.print("Metalworks: Update() dataBank is not nil")
         local data = IndustryData()
 
         local info = self.industryUnit.getInfo()

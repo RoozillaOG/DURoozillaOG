@@ -333,22 +333,12 @@ function Invoke-DisplayConstruct(
 
 function ConvertTo-LuaTable(
   [Parameter(Mandatory=$true)][string]$Name,
-  [string]$Path,
-  [switch]$FromClipboard,
-  [switch]$ToClipboard)
+  [Parameter(Mandatory=$true)][string]$Jsonfile)
 {
-  $data = $null
-  if($FromClipboard) {
-    $data = (Get-Clipboard) | ConvertFrom-Json
-  }
-  elseif($Path) 
-  {
-    $data = Get-Contents -Path $Path
-  }
-  else {
-    Write-Host "Need to specify a path or -FromClipboard"
-    return 1
-  }
+  $dir = Split-Path -Parent $Jsonfile
+  Push-Location $dir
+  $jsonFiles = Get-Content -Path (Split-Path -Leaf $Jsonfile) | ConvertFrom-Json
+  $baseName = (Get-item -path (Split-Path -Leaf $Jsonfile)).Basename
 
   $lua = @"
 
@@ -360,21 +350,27 @@ if not ${Name} then
     local self = {
       idToDisplayName = {
 $(
-  foreach($item in $data) {
+  foreach($json in $JsonFiles) {
+    $obj = Get-Content -Path $json | ConvertFrom-Json
+    foreach($item in $obj) {
     @"
         [$($item.id)] = { id = $($item.id), displayNameWithSize = "$($item.displayNameWithSize)" },
 
 "@
+    }
   }
 )
       },
       displayNameToId = {
 $(
-  foreach($item in $data) {
+  foreach($json in $JsonFiles) {
+    $obj = Get-Content -Path $json | ConvertFrom-Json
+    foreach($item in $obj) {
     @"
-        [$($item.displayNameWithSize)] = { id = $($item.id), displayNameWithSize = "$($item.displayNameWithSize)" },
+        ["$($item.displayNameWithSize)"] = { id = $($item.id), displayNameWithSize = "$($item.displayNameWithSize)" },
 
 "@
+    }
   }
 )
       }
@@ -406,5 +402,7 @@ end
 
 "@
 
-    $lua
+    $lua | Set-Content "${baseName}.lua"
+
+    Pop-Location
 }

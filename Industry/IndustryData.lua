@@ -24,7 +24,6 @@ if not IndustryData then
     for kRow, vRow in pairs(data) do
       local row = DataRow()
       local rowData = json.decode(vRow)
-      logMessage("Rowdata notification: " .. rowData.notification)
       row.AddCell(DataCell(rowData.name, rowData.notification))
       row.AddCell(DataCell(IndustryState[rowData.status], rowData.notification))
       row.AddCell(DataCell(rowData.product, rowData.notification))
