@@ -1,0 +1,1 @@
+sInputContainer1.updateContent()
