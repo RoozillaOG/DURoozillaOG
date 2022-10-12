@@ -1,30 +1,72 @@
 
-local json = require("dkjson")
-require "../Industry/IndustryMonitor.lua"
+--onstart
+require "../Industry/IndustryStocker.lua"
+require "../Utils/Metalworks.lua"
+require "../Container/ContainerContents.lua"
+require "../Industry/IndustryState.lua"
+require "../Utils/ElectronicProducts.lua"
+require "../Utils/threeDPrinter.lua"
 
-monitor = IndustryMonitor(
-    "Metalworks",
-    sMetalWorks,
-    sDataBank
+outputContents = ContainerContents(resourceMapper, {sOutputContainer1})
+
+stockers = {}
+
+local metalworks = {
+  ["Basic Reinforced Frame xs"] = 5,
+  ["Basic Standard Frame xs"] = 5,
+  ["Basic Reinforced Frame s"] = 5,
+  ["Basic Standard Frame s"] = 5,
+  ["Basic Reinforced Frame m"] = 5,
+  ["Basic Standard Frame m"] = 5,
+  ["Basic Reinforced Frame l"] = 5,
+  ["Basic Standard Frame l"] = 5,
+  ["Basic Pipe"] = 600,
+  ["Basic hydraulics"] = 600,
+  ["Basic Screw"] = 600
+}
+
+local electronics = {
+  ["Basic Component"] = 600,
+  ["Basic Connector"] = 600,
+  ["Basic Electronics"] = 200
+}
+
+stockers[#stockers + 1] = IndustryStocker(
+    "Metalworks1",
+    MetalWorks(),
+    sBasicMetalWorks1,
+    outputContents,
+    metalworks
   )
 
-monitor2 = IndustryMonitor(
+stockers[#stockers + 1] = IndustryStocker(
     "Metalworks2",
-    sMetalWorks2,
-    sDataBank
+    MetalWorks(),
+    sBasicMetalWorks2,
+    outputContents,
+    metalworks
   )
 
-monitor3 = IndustryMonitor(
-    "s3DPrinter1",
-    s3DPrinter1,
-    sDataBank
+stockers[#stockers + 1] = IndustryStocker(
+    "Electronics",
+    ElectronicProducts(),
+    sBasicElectronics1,
+    outputContents,
+    electronics 
   )
 
-monitor.Update()
-monitor2.Update()
-monitor3.Update()
+--stockers[#stockers + 1] = IndustryStocker(
+--    "3DPrinter1",
+--    ThreeDPrinter(),
+--    s3DPrinter1,
+--    outputContents,
+--    electronics 
+--  )
 
-unit.setTimer("ContainerUpdate", 31)
-unit.setTimer("IndustryUpdate", 10)
+for k, v in pairs(stockers) do
+  v.Update()
+end
+
+unit.setTimer("Update", 10)
 
 

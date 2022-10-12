@@ -134,6 +134,9 @@ if not ThreeDPrinter then
       system.print("PureResource::GetDisplayName(" .. id .. ") failed to get name")
       return ""
     end
+     
+    return self
   end
 end
+
 
