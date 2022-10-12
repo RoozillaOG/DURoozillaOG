@@ -11,8 +11,9 @@ resourceMapper = Products()
 
 outputContents = ContainerContents(resourceMapper, {sOutputContainer})
 outputContents.Update()
+stockers = {}
 
-stocker = IndustryStocker(
+stockers[#stockers + 1] = IndustryStocker(
     "Smelter",
     resourceMapper,
     sSmelter,
@@ -24,7 +25,10 @@ stocker = IndustryStocker(
     }
   )
 
-stocker.Update()
+
+for k, v in pairs(stockers) do
+  v.Update()
+end
 
 unit.setTimer("ContainerUpdate", 31)
 unit.setTimer("IndustryUpdate", 10)
