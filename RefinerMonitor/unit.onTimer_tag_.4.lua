@@ -1,7 +1,6 @@
+
 require "../Utils/DUDebug.lua"
-
-DebugPrint("Display Update")
-
+sOutputContainer.updateContent()
 displayData.Update()
 
 

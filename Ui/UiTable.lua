@@ -53,6 +53,7 @@ if not UiTable then
       local colWidth = (ex - sx) / numColumns
       local rowNumOdd = true
       for k, v in pairs(self.data) do
+        logMessage("v = " .. json.encode(v))
         local cx = sx
         for i= 1, numColumns do
           if (rowNumOdd == true) then

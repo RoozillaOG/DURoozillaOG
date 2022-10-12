@@ -9,9 +9,8 @@ require "../Utils/DUDebug.lua"
 require "../Industry/IndustryMonitor.lua"
 
 unit.setTimer("Update", 30)
-unit.setTimer("ContainerUpdate", 31)
+unit.setTimer("ContainerUpdate", 35)
 
-sOutputContainer.updateContent()
 resourceMapper = PureResources()
 
 -- wrapper around output containers
@@ -29,7 +28,11 @@ displayData = DisplayData(
       "Pure Iron",
       "Pure Silicon",
       "Pure Hydrogen",
-      "Pure Oxygen"
+      "Pure Oxygen",
+      "Pure Calcium",
+      "Pure Chromium",
+      "Pure Copper",
+      "Pure Sodium"
     }
   )
 
@@ -42,7 +45,11 @@ stocker = IndustryStocker(
         ["Pure Aluminium"] = 1000,
         ["Pure Carbon"] = 1000, 
         ["Pure Iron"] = 1000, 
-        ["Pure Silicon"] = 1000
+        ["Pure Silicon"] = 1000,
+        ["Pure Calcium"] = 300,
+        ["Pure Chromium"] = 300,
+        ["Pure Copper"] = 300, 
+        ["Pure Sodium"] = 300
     }
   )
 

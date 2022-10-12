@@ -16,6 +16,7 @@ if not IndustryMonitor then
     }
         
     function self.Update()
+      system.print("Metalworks: Update()")
       if(self.dataBank) then
         local data = IndustryData()
 
