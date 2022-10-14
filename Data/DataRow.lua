@@ -14,7 +14,7 @@ if not DataRow then
     }
 
     function self.AddCell(cell) 
-      self.data.cells[#self.data.cells + 1] = cell
+      self.cells[#self.data.cells + 1] = cell
     end
 
     function self.NumCells()

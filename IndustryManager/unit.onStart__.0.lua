@@ -6,8 +6,6 @@ require "../Utils/PureResources.lua"
 --sDataBank.clear()
 unit.setTimer("Update", 10)
 
-system.print("Here: " .. sDataBank.getId())
-
 resourceMapper = PureResources()
 displayData = DisplayData(
     sDisplay,
@@ -16,5 +14,11 @@ displayData = DisplayData(
   )
 
 displayData.Update()
+
+--sLight.setColor(1.0, 0.0, 0.0)
+--sLight.setOnBlinkingDuration(1)
+--sLight.setOffBlinkingDuration(1)
+--sLight.setBlinkingTimeShift(2)
+--sLight.setBlinkingState(true)
 
 

@@ -2,7 +2,6 @@
 require "../Data/DataGrid.lua"
 require "../Data/DataRow.lua"
 require "../Data/DataCell.lua"
-require "./IndustryState.lua"
 
 if not IndustryData then
   IndustryData = {}
@@ -23,10 +22,9 @@ if not IndustryData then
     dataGrid = DataGrid()
     for kRow, vRow in pairs(data) do
       local row = DataRow()
-      local rowData = json.decode(vRow)
-      row.AddCell(DataCell(rowData.name, rowData.notification))
-      row.AddCell(DataCell(IndustryState[rowData.status], rowData.notification))
-      row.AddCell(DataCell(rowData.product, rowData.notification))
+      row.AddCell(UiCell(vRow.name, vRow.notificaiton))
+      row.AddCell(UiCell(vRow.status, vRow.notificaiton))
+      row.AddCell(UiCell(vRow.product, vRow.notification))
       dataGrid.AddRow(row)
     end
     return dataGrid

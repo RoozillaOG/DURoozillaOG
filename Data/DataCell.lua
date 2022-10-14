@@ -3,17 +3,17 @@ if not DataCell then
   DataCell = {}
   DataCell.__index = DataCell
 
-  DataCellStatusNormal = 1
-  DataCellStatusWarning = 2
-  DataCellStatusAlert = 3
-  DataCellStatusGood = 4
+  DataCellStatusNormal = "Normal"
+  DataCellStatusWarning = "Warning"
+  DataCellStatusAlert = "Alert"
+  DataCellStatusGood = "Good"
 
   --@param status string one of Normal, Warning, Alert
-  function DataCell(text, notification)
+  function DataCell(text, status)
     local self = {
       ["data"] = {
-        text = text or "",
-        notification = notification or DataCellStatusNormal
+        text = text,
+        status = status or DataCellStatusNormal
       }
     }
 
@@ -23,10 +23,6 @@ if not DataCell then
 
     function self.GetStatus()
       return self.data.status
-    end
-        
-    function self.GetNotification()
-      return self.data.notification
     end
 
     function self.GetData()
