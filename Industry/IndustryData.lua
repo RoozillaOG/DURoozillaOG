@@ -22,9 +22,11 @@ if not IndustryData then
     dataGrid = DataGrid()
     for kRow, vRow in pairs(data) do
       local row = DataRow()
-      row.AddCell(UiCell(vRow.name, vRow.notificaiton))
-      row.AddCell(UiCell(vRow.status, vRow.notificaiton))
-      row.AddCell(UiCell(vRow.product, vRow.notification))
+      local rowData = json.decode(vRow)
+      logMessage("Rowdata notification: " .. rowData.notification)
+      row.AddCell(DataCell(rowData.name, rowData.notification))
+      row.AddCell(DataCell(IndustryState[rowData.status], rowData.notification))
+      row.AddCell(DataCell(rowData.product, rowData.notification))
       dataGrid.AddRow(row)
     end
     return dataGrid

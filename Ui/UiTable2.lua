@@ -14,7 +14,7 @@ if not UiTable2 then
   ---@param sy number Starting y location of table
   ---@param ex number Ending x location of table 
   ---@param ey number Ending y location of table
-  ---@param data table A table of rows containing a table of columns to dislay in the table
+  ---@param data table A table of rows containing a table of columns to dislay in the table 
   function UiTable2(layer, sx, sy, ex, ey, dataGrid, fontname)
     local self = {
       sx = sx or 0.0,
@@ -27,7 +27,7 @@ if not UiTable2 then
       oddRowColor = nil,
       spacingInPixels = 5,
       pixelsPerFontSize = 1.0,
-      maxRowSize = 40,
+      maxRowSize = 100,
       fontName = fontname or "RefrigeratorDeluxe",
       fontColor = ColorRGBA().White()
     }
