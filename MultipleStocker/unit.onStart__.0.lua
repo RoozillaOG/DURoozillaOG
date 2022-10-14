@@ -12,14 +12,14 @@ outputContents = ContainerContents(resourceMapper, {sOutputContainer1})
 stockers = {}
 
 local metalworks = {
-  ["Basic Reinforced Frame XS"] = 5,
-  ["Basic Standard Frame XS"] = 5,
-  ["Basic Reinforced Frame S"] = 5,
-  ["Basic Standard Frame S"] = 5,
-  ["Basic Reinforced Frame M"] = 5,
-  ["Basic Standard Frame M"] = 5,
-  ["Basic Reinforced Frame L"] = 5,
-  ["Basic Standard Frame L"] = 5,
+--  ["Basic Reinforced Frame xs"] = 5,
+--  ["Basic Standard Frame xs"] = 5,
+--  ["Basic Reinforced Frame s"] = 5,
+--  ["Basic Standard Frame s"] = 5,
+--  ["Basic Reinforced Frame m"] = 5,
+--  ["Basic Standard Frame m"] = 5,
+--  ["Basic Reinforced Frame l"] = 5,
+--  ["Basic Standard Frame l"] = 5,
   ["Basic Pipe"] = 600,
   ["Basic hydraulics"] = 600,
   ["Basic Screw"] = 600
@@ -55,13 +55,13 @@ stockers[#stockers + 1] = IndustryStocker(
     electronics 
   )
 
-stockers[#stockers + 1] = IndustryStocker(
-    "3DPrinter1",
-    ThreeDPrinter(),
-    s3DPrinter1,
-    outputContents,
-    electronics 
-  )
+--stockers[#stockers + 1] = IndustryStocker(
+--    "3DPrinter1",
+--    ThreeDPrinter(),
+--    s3DPrinter1,
+--    outputContents,
+--    electronics 
+--  )
 
 for k, v in pairs(stockers) do
   v.Update()

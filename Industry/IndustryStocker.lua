@@ -15,6 +15,12 @@ if not IndustryStocker then
     }
         
     function self.Update()
+            
+      if(not self.outputContents.HasContents()) then
+        DebugPrint("Output Contents is Empty")
+        return
+      end
+            
       if(IndustryState[self.industryUnit.getState()] ~= "Running") then
         local current = nil
         if(self.industryUnit.getOutputs()[1]) then

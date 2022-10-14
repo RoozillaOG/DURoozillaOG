@@ -27,6 +27,13 @@ if not ContainerContents then
         end
       end
     end
+        
+    function self.HasContents()
+      if(self.contents and #self.contents > 0) then
+        return true
+      end
+      return false
+    end
 
     function self.GetQuantityForId(id)
       local name = self.resourceMapper.GetDisplayName(id)
