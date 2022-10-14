@@ -6,7 +6,6 @@ require "../Element/Products.lua"
 require "../Industry/IndustryStocker.lua"
 require "../Industry/IndustryMonitor.lua"
 
-sOutputContainer.updateContent()
 resourceMapper = Products()
 
 outputContents = ContainerContents(resourceMapper, {sOutputContainer})

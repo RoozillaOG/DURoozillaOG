@@ -1,7 +1,7 @@
-local json = require('dkjson')
+--local json = require('dkjson')
 
-unit.setTimer("ContainerUp", 32)
+--unit.setTimer("ContainerUp", 32)
 
-content = Container.updateContent()
+--content = Container.Content()
 
-Display.setScriptInput(content)
+--Display.setScriptInput(content)

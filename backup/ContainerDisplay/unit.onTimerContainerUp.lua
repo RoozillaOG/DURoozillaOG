@@ -1,3 +1,1 @@
-local json = require('dkjson')
-
-Container.updateContent()
+-- local json = require('dkjson')
