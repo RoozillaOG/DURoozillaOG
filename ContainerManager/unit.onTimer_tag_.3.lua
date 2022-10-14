@@ -1,3 +1,4 @@
+
 sInputContainer1.updateContent()
 local contents = sInputContainer1.getContent()
 if(contents) then
@@ -5,3 +6,5 @@ if(contents) then
   sDataBank.setStringValue("Container.Merged.Content", json.encode(contents))
   DebugPrint("<<<< Ended databank update")
 end
+
+

@@ -30,7 +30,7 @@ if not TransferManager then
         self.currentIndex = 1
       end
       DebugPrint("--------")
-      DebugPrint("Input container contents: " .. json.encode(self.contents))
+      --DebugPrint("Input container contents: " .. json.encode(self.contents))
       DebugPrint("--------")
       if(IndustryState[self.transferUnit.getState()] ~= "Running") then
         local current = nil
