@@ -18,7 +18,7 @@ if not IndustryStocker then
       if(IndustryState[self.industryUnit.getState()] ~= "Running") then
         local current = nil
         if(self.industryUnit.getOutputs()[1]) then
-          current = system.getItem(self.industryUnit.getOutputs()[1].id).displayName
+          current = self.resourceMapper.GetDisplayName(self.industryUnit.getOutputs()[1].id)
         end
         self.industryUnit.stop(true, true)
         for itemName, itemQuantity in pairs(self.itemNameAndRequestedQuantity) do
@@ -37,5 +37,9 @@ if not IndustryStocker then
     return self
   end
 end
+
+
+
+
 
 
