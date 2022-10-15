@@ -1,5 +1,4 @@
 
-
 require "../Utils/DUDebug.lua"
 
 if not IndustryStocker then
@@ -12,7 +11,8 @@ if not IndustryStocker then
       industryUnit = industryUnit,
       itemNameAndRequestedQuantity = items,
       resourceMapper = resourceMapper,
-      containerData = containerData
+      containerData = containerData,
+      currentItem = ""
     }
         
     function self.Update()
@@ -29,10 +29,19 @@ if not IndustryStocker then
           if(quantity < requested and current ~= itemName) then
             DebugPrint(self.name .. ": Setting product to: " .. itemName)
             self.industryUnit.setOutput(self.resourceMapper.GetId(itemName))
+            self.currentItem = itemName
             self.industryUnit.startFor(1)
           end
         end
       end
+    end
+
+    function self.GetName()
+      return self.name or ""
+    end
+
+    function self.GetCurrentItem()
+      return self.currentItem or ""
     end
 
     return self

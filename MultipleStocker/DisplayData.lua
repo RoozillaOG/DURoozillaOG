@@ -1,3 +1,4 @@
+
 require "dkjson"
 
 if not DisplayData then
@@ -11,27 +12,21 @@ if not DisplayData then
     }
 
     function self.Update()
-      local data = {
-        "Transfering"
-      }
+      local displayData = {}
 
-      local output = self.transferUnit.getOutputs()
-      if(output) then
-        data[#data + 1] = system.getItem(output[1].id).displayName
-      else
-        data[#data + 1] = "None"
+      for k, v in pairs(self.stockers) do
+        displayData[#displayData + 1] = {
+          v.GetName(),
+          v.GetCurrentItem()
+        }
       end
 
-      local displayData = {
-        data
-      }
-
-      for k, v in pairs(self.containers) do
-        displayData[#displayData + 1] = {v.GetContainerName(), v.GetDataBankKey()}
-      end
+      DebugPrint("DisplayData: setting data = " .. json.encode(displayData))
       self.display.setScriptInput(json.encode(displayData))
     end
 
     return self
   end
 end
+
+

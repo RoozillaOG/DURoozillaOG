@@ -7,6 +7,7 @@ require "../Industry/IndustryState.lua"
 require "../Utils/ElectronicProducts.lua"
 require "../Utils/threeDPrinter.lua"
 require "../Container/ContainerData.lua"
+require "./DisplayData.lua"
 
 DebugPrint("unit start")
 
@@ -80,6 +81,9 @@ stockers[#stockers + 1] = IndustryStocker(
 for k, v in pairs(stockers) do
   v.Update()
 end
+
+displayData = DisplayData(stockers, sDisplay1)
+displayData.Update()
 
 unit.setTimer("Update", 30)
 
