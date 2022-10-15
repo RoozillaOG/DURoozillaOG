@@ -53,7 +53,7 @@ if not ContainerData then
     function self.GetQuantityForName(name)
       local id = self.displayNameToId[name]
       if(id == nil) then
-        DebugPrint("ContainerData.GetQuantityForName: could not find id for name " .. name)
+        DebugPrint("ContainerData.GetQuantityForName: could not find id for name ")
         return 0.0
       end
 

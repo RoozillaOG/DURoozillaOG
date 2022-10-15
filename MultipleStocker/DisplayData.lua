@@ -3,6 +3,7 @@ require "dkjson"
 require "../Data/DataCell.lua"
 require "../Data/DataRow.lua"
 require "../Data/DataGrid.lua"
+require "../Utils/Utils.lua"
 
 if not DisplayData then
   DisplayData = {}
@@ -31,11 +32,13 @@ if not DisplayData then
           notification = DataCellStatusAlert
         end
 
-        row.AddCell(DataCell(v.GetName(), notification))
-        row.AddCell(DataCell(v.GetCurrentItem(), notification))
+        row.AddCell(DataCell(UtilsShorten(v.GetName(), 10), notification))
+        row.AddCell(DataCell(UtilsShorten(v.GetCurrentItem(), 10), notification))
         row.AddCell(DataCell(
-                        self.containerData.GetQuantityForName(v.GetCurrentItem()), 
-                        notification)
+                        json.encode(
+                           math.floor(self.containerData.GetQuantityForName(v.GetCurrentItem()))
+                           ), 
+                       notification)
                     )
         row.AddCell(DataCell(v.GetStateName(), notification))
         dataGrid.AddRow(row)

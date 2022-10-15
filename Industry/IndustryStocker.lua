@@ -16,6 +16,7 @@ if not IndustryStocker then
     }
         
     function self.Update()
+      DebugPrint("IndustryStocker: Update(): " .. self.name)
       if(IndustryState[self.industryUnit.getState()] ~= "Running") then
         local current = nil
         if(self.industryUnit.getOutputs()[1]) then
@@ -45,7 +46,11 @@ if not IndustryStocker then
     end
 
     function self.GetCurrentItem()
-      return self.currentItem or ""
+      local output = self.industryUnit.getOutputs()
+      if(output == nil or #output == 0) then
+        return ""
+      end
+      return system.getItem(output[1].id).displayName
     end
 
     return self

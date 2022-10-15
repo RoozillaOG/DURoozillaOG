@@ -1,15 +1,9 @@
-if not RooUtils then
-  RooUtils = {}
-  RooUtils.__index = RooUtils
-
-  function RooUtils:new()
-    local self = {
-    }
-        
-    function self:hitTest(layer, font)
-
+if not Utils then
+  function UtilsShorten(str, length)
+    if(#str > length) then
+      return string.sub(str, 1, length)
     end
 
-    return self
+    return str
   end
 end

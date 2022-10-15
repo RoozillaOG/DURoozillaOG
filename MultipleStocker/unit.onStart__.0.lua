@@ -71,9 +71,11 @@ stockers[#stockers + 1] = IndustryStocker(
     }
   )
 
+refinedProducts = RefinedProducts()
+
 stockers[#stockers + 1] = IndustryStocker(
     "Smelter",
-    Products(),
+    refinedProducts,
     sSmelter,
     containerData,
     {
@@ -85,7 +87,7 @@ stockers[#stockers + 1] = IndustryStocker(
 
 stockers[#stockers + 1] = IndustryStocker(
     "GlassWorks",
-    Products(),
+    refinedProducts,
     sGlassWorks,
     containerData,
     {
@@ -94,7 +96,7 @@ stockers[#stockers + 1] = IndustryStocker(
 
 stockers[#stockers + 1] = IndustryStocker(
     "Chemical",
-    Products(),
+    refinedProducts,
     sChemical,
     containerData,
     {
