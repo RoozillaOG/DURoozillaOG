@@ -7,7 +7,7 @@ if not DataGrid then
   DataGrid.__index = DataGrid
 
   function DataGrid(rows)
-    local self = {
+    self = {
       ["data"] = {
         rows = rows or {}
       }
@@ -16,19 +16,10 @@ if not DataGrid then
     function self.AddRow(row)
       self.data.rows[#self.data.rows + 1] = row
     end
-        
-    function self.GetRows()
-      return self.data.rows
-    end
-        
-    function self.NumRows()
-      return #self.data.rows
-    end
 
     function self.NumColumns()
-            
-      if(#self.data.rows > 0) then
-        return self.data.rows[1].NumCells()
+      if(#self.rows > 0) then
+        return self.data.rows[0].NumCells()
       end
 
       return 0
@@ -36,7 +27,6 @@ if not DataGrid then
 
     function self.Encode()
       local data = {}
-            
       for k, v in pairs(self.data.rows) do
         data[#data + 1] = v.GetData()
       end
@@ -48,7 +38,7 @@ if not DataGrid then
       for kRow, vRow in pairs(rows) do
         local row = DataRow()
         row.FromData(vRow)
-        self.AddRow(row)
+        self.data.rows[#self.data.rows + 1] = row
       end
     end
 

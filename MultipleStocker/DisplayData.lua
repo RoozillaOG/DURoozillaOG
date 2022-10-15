@@ -35,12 +35,10 @@ if not DisplayData then
         row.AddCell(DataCell(UtilsShorten(v.GetName(), 10), notification))
         row.AddCell(DataCell(UtilsShorten(v.GetCurrentItem(), 10), notification))
         row.AddCell(DataCell(
-                        json.encode(
-                           math.floor(self.containerData.GetQuantityForName(v.GetCurrentItem()))
-                           ), 
+                        math.floor(self.containerData.GetQuantityForName(v.GetCurrentItem())), 
                        notification)
                     )
-        row.AddCell(DataCell(v.GetStateName(), notification))
+        row.AddCell(DataCell(UtilsShorten(v.GetStateName(), 10), notification))
         dataGrid.AddRow(row)
       end
 

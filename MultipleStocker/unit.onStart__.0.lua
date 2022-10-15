@@ -103,19 +103,7 @@ stockers[#stockers + 1] = IndustryStocker(
     }
   )
 
-  stockers[#stockers + 1] = IndustryStocker(
-    "Refiner",
-    PureResources(),
-    sBasicRefiner1,
-    containerData,
-    {
-      ["Pure Aluminium"] = 1500,
-      ["Pure Carbon"] = 1500,
-      ["Pure Chromium"] = 1500,
-      ["Pure Copper"] = 1500,
-      ["Pure Iron"] = 1500
-    }
-  )
+
 
 --stockers[#stockers + 1] = IndustryStocker(
 --    "3DPrinter1",

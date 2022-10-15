@@ -28,10 +28,6 @@ if not DataCell then
     function self.GetData()
       return self.data
     end
-        
-    function self.GetNotification()
-      return self.data.status
-    end
 
     return self
   end
