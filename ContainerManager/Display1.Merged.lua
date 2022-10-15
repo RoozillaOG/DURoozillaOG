@@ -50,7 +50,7 @@ if not UiTable then
   ---@param ex number Ending x location of table 
   ---@param ey number Ending y location of table
   ---@param data table A table of rows containing a table of columns to dislay in the table
-  function UiTable(layer, sx, sy, ex, ey, data)
+  function UiTable(layer, sx, sy, ex, ey, data, fontSize)
     local self = {
       sx = sx or 0.0,
       sy = sy or 0.0,
@@ -62,7 +62,7 @@ if not UiTable then
       oddRowColor = nil,
       spacingInPixels = 5,
       pixelsPerFontSize = 1.0,
-      maxRowSize = 50,
+      maxRowSize = fontSize or 50,
       fontName = "Play",
       fontColor = ColorRGBA().White()
     }
@@ -71,10 +71,12 @@ if not UiTable then
       self.ex, self.ey = getResolution()
     end
 
-    local fontOne = loadFont(self.fontName, 50)
-    local fontTwo = loadFont(self.fontName, 100)
-    self.pixelsPerFontSize = (100 - 50) / (getFontSize(fontTwo) - getFontSize(fontOne))
-
+    if(fontSize == nil) then
+      local fontOne = loadFont(self.fontName, 50)
+      local fontTwo = loadFont(self.fontName, 100)
+      self.pixelsPerFontSize = (100 - 50) / (getFontSize(fontTwo) - getFontSize(fontOne))
+    end
+            
     function self.Draw()
       local numRows = #data
       local rowHeightInPixels = (ey - sy) / numRows
@@ -146,12 +148,19 @@ logMessage(json.encode(getInput()))
 local font = loadFont("Play", 70)
 local x = getFontSize(font)
 
-setNextTextAlign(layer, AlignH_Left, AlignV_Top)
+setNextTextAlign(layer, AlignH_Center, AlignV_Top)
 local color = ColorRGBAWhite
 setNextStrokeColor(layer, color.r, color.g, color.b, color.a)
-addText(layer, font, "Refiner", 0.0, 0.0)
+addText(layer, font, "Container Management", sx / 2.0, 0.0)
 
-local dataTable = UiTable(layer, 20.0, x, sx - 20.0, sy - 20.0, json.decode(getInput()))  
+local displayData = getInput()
+local displayObject = {}
+if (displayData) then
+  displayObject = json.decode(displayData)
+  logMessage("DisplayData: " .. json.encode(displayObject))
+end
+
+local dataTable = UiTable(layer, 20.0, x + 20.0, sx - 20.0, sy - 20.0, json.decode(getInput()), 40)  
 dataTable.gridLines = true
 dataTable.oddRowColor = ColorRGBALightGreen
 dataTable.evenRowColor = ColorRGBALightBlue
