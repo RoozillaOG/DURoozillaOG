@@ -28,36 +28,23 @@ if not TransferManager then
         self.contents = self.inputContainer.getContent()
         return
       end
+            
       if(#self.contents < self.currentIndex) then
         DebugPrint("Resetting index and getting new contents")
         self.contents = self.inputContainer.getContent()
         self.currentIndex = 1
       end
-      DebugPrint("--------")
-      --DebugPrint("Input container contents: " .. json.encode(self.contents))
-      DebugPrint("--------")
+
       if(IndustryState[self.transferUnit.getState()] ~= "Running") then
-        local current = nil
-        if(self.transferUnit.getOutputs()[1]) then
-          current = self.transferUnit.getInputs()[1].id
-          DebugPrint("Current: " .. current)
-        end
-        DebugPrint("State: " .. IndustryState[self.transferUnit.getState()])
-        if(current ~= nil and IndustryState[self.transferUnit.getState()] == "Stopped") then
-          DebugPrint("Continuing to transfer " .. system.getItem(self.transferUnit.getOutputs()[1].id).displayName)
-          self.transferUnit.setOutput(current)
-          self.transferUnit.startFor(1) 
-        else
-          self.transferUnit.stop(true, true)
-          DebugPrint("Index: " .. self.currentIndex)
-          DebugPrint("Transfering: " .. json.encode(self.contents[self.currentIndex]))
-          DebugPrint("Transfering: " .. system.getItem(self.contents[self.currentIndex].id).displayName)
-          self.currentTransfer = system.getItem(self.contents[self.currentIndex].id).displayName
-          self.transferUnit.setOutput(self.contents[self.currentIndex].id)
-          self.transferUnit.startFor(1)
-          self.currentIndex = self.currentIndex + 1
-          return
-        end
+        self.transferUnit.stop(true, true)
+        DebugPrint("Index: " .. self.currentIndex)
+        DebugPrint("Transfering: " .. json.encode(self.contents[self.currentIndex]))
+        DebugPrint("Transfering: " .. system.getItem(self.contents[self.currentIndex].id).displayName)
+        self.currentTransfer = system.getItem(self.contents[self.currentIndex].id).displayName
+        self.transferUnit.setOutput(self.contents[self.currentIndex].id)
+        self.transferUnit.startFor(1)
+        self.currentIndex = self.currentIndex + 1
+        return
       end
     end
 
