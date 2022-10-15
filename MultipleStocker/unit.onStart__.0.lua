@@ -9,6 +9,7 @@ require "../Utils/threeDPrinter.lua"
 require "../Container/ContainerData.lua"
 require "./DisplayData.lua"
 require "../Utils/PureResources.lua"
+require "../Utils/Products.lua"
 
 DebugPrint("unit start")
 
@@ -79,6 +80,24 @@ stockers[#stockers + 1] = IndustryStocker(
         ["Steel product"] = 1000,
         ["Al-Fe Alloy product"] = 1000, 
         ["Silumin Product"] = 1000
+    }
+  )
+
+stockers[#stockers + 1] = IndustryStocker(
+    "GlassWorks",
+    Products(),
+    sGlassWorks,
+    containerData,
+    {
+    }
+  )
+
+stockers[#stockers + 1] = IndustryStocker(
+    "Chemical",
+    Products(),
+    sChemical,
+    containerData,
+    {
     }
   )
 

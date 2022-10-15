@@ -337,7 +337,7 @@ function ConvertTo-LuaTable(
 {
   $dir = Split-Path -Parent $Jsonfile
   Push-Location $dir
-  $jsonFiles = Get-Content -Path (Split-Path -Leaf $Jsonfile) | ConvertFrom-Json
+  $jsonData = Get-Content -Path (Split-Path -Leaf $Jsonfile) | ConvertFrom-Json
   $baseName = (Get-item -path (Split-Path -Leaf $Jsonfile)).Basename
 
   $lua = @"
@@ -350,27 +350,21 @@ if not ${Name} then
     local self = {
       idToDisplayName = {
 $(
-  foreach($json in $JsonFiles) {
-    $obj = Get-Content -Path $json | ConvertFrom-Json
-    foreach($item in $obj) {
+  foreach($item in $jsonData) {
     @"
         [$($item.id)] = { id = $($item.id), displayNameWithSize = "$($item.displayNameWithSize)" },
 
 "@
-    }
   }
 )
       },
       displayNameToId = {
 $(
-  foreach($json in $JsonFiles) {
-    $obj = Get-Content -Path $json | ConvertFrom-Json
-    foreach($item in $obj) {
+  foreach($item in $jsonData) {
     @"
         ["$($item.displayNameWithSize)"] = { id = $($item.id), displayNameWithSize = "$($item.displayNameWithSize)" },
 
 "@
-    }
   }
 )
       }
