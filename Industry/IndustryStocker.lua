@@ -1,26 +1,21 @@
 
+
 require "../Utils/DUDebug.lua"
 
 if not IndustryStocker then
   IndustryStocker = {}
   IndustryStocker.__index = IndustryStocker
 
-  function IndustryStocker(name, resourceMapper, industryUnit, outputContents, items)
+  function IndustryStocker(name, resourceMapper, industryUnit, containerData, items)
     local self = {
       name = name,
       industryUnit = industryUnit,
       itemNameAndRequestedQuantity = items,
-      outputContents = outputContents,
-      resourceMapper = resourceMapper
+      resourceMapper = resourceMapper,
+      containerData = containerData
     }
         
     function self.Update()
-            
-      if(not self.outputContents.HasContents()) then
-        DebugPrint("Output Contents is Empty")
-        return
-      end
-            
       if(IndustryState[self.industryUnit.getState()] ~= "Running") then
         local current = nil
         if(self.industryUnit.getOutputs()[1]) then
@@ -28,7 +23,7 @@ if not IndustryStocker then
         end
         self.industryUnit.stop(true, true)
         for itemName, itemQuantity in pairs(self.itemNameAndRequestedQuantity) do
-          local quantity = outputContents.GetQuantityForName(itemName)
+          local quantity = self.containerData.GetQuantityForName(itemName)
           local requested = self.itemNameAndRequestedQuantity[itemName]
           DebugPrint(self.name .. ": quantity(" .. quantity .. ") < requested(" .. requested .. ")" .. " " .. itemName .. " ~= " .. current)
           if(quantity < requested and current ~= itemName) then
@@ -43,9 +38,5 @@ if not IndustryStocker then
     return self
   end
 end
-
-
-
-
 
 
