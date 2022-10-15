@@ -3,6 +3,7 @@ require "../Ui/UiTable2.lua"
 require "../Data/DataGrid.lua"
 require "../Data/DataRow.lua"
 require "../Data/DataCell.lua"
+require "../Industry/IndustryState.lua"
 
 local json = require("dkjson")
 
@@ -31,6 +32,11 @@ setNextTextAlign(layer, AlignH_Center, AlignV_Top)
 local color = ColorRGBAWhite
 setNextStrokeColor(layer, color.r, color.g, color.b, color.a)
 addText(layer, font, "Industry Stocker", sx / 2.0, 0.0)
+
+-- set last cell (status) to text instead of index, keeping data size small
+for k, v in pairs(dataGrid.GetRows()) do
+  v[#v].SetText(IndustryState[v[#v].GetText()])
+end
 
 local dataTable = UiTable2(layer, 20.0, y + 20.0, sx - 20.0, sy - 20.0, dataGrid)
 dataTable.gridLines = true

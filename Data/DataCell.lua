@@ -25,6 +25,14 @@ if not DataCell then
       return self.data.status
     end
 
+    function self.SetText(value)
+      self.data.text = value
+    end
+
+    function self.SetStatus(status)
+      self.data.status = status
+    end
+
     function self.GetData()
       return self.data
     end
