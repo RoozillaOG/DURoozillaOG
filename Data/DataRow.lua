@@ -40,7 +40,7 @@ if not DataRow then
 
     function self.FromData(row)
       for kRow, kValue in pairs(row) do
-        self.data.cells[#self.data.cells + 1] = UiCell(kValue.text, kValue.status)
+        self.data.cells[#self.data.cells + 1] = DataCell(kValue.text, kValue.status)
       end
     end
 

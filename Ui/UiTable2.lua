@@ -30,7 +30,7 @@ if not UiTable2 then
       oddRowColor = nil,
       spacingInPixels = 5,
       pixelsPerFontSize = 1.0,
-      maxRowSize = 100,
+      maxRowSize = 45,
       fontName = fontname or "RefrigeratorDeluxe",
       fontColor = ColorRGBA().White()
     }

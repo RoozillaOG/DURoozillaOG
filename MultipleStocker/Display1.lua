@@ -25,7 +25,7 @@ local dataGrid = DataGrid()
 dataGrid.FromRowData(json.decode(getInput()))
 
 local font = loadFont("Play", 70)
-local x, y = getFontSize(font)
+local y = getFontSize(font)
 
 setNextTextAlign(layer, AlignH_Center, AlignV_Top)
 local color = ColorRGBAWhite
