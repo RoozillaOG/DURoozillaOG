@@ -35,7 +35,8 @@ addText(layer, font, "Industry Stocker", sx / 2.0, 0.0)
 
 -- set last cell (status) to text instead of index, keeping data size small
 for k, v in pairs(dataGrid.GetRows()) do
-  v[#v].SetText(IndustryState[v[#v].GetText()])
+    logMessage("Cell: " .. v.GetCell(1).GetClassName())
+  v.GetCell(v.NumCells()).SetText(IndustryState[v.GetCell(v.NumCells()).GetText()])
 end
 
 local dataTable = UiTable2(layer, 20.0, y + 20.0, sx - 20.0, sy - 20.0, dataGrid)

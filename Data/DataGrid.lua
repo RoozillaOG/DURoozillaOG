@@ -7,7 +7,8 @@ if not DataGrid then
   DataGrid.__index = DataGrid
 
   function DataGrid(rows)
-    self = {
+    local self = {
+      classname = "DataGrid",
       ["data"] = {
         rows = rows or {}
       }
@@ -18,11 +19,23 @@ if not DataGrid then
     end
 
     function self.NumColumns()
-      if(#self.rows > 0) then
-        return self.data.rows[0].NumCells()
+      if(#self.data.rows > 0) then
+        return self.data.rows[1].NumCells()
       end
 
       return 0
+    end
+        
+    function self.NumRows()
+      return #self.data.rows
+    end
+        
+    function self.GetRows()
+      return self.data.rows
+    end
+        
+    function self.GetClassName()
+      return self.classname
     end
 
     function self.Encode()
@@ -38,7 +51,7 @@ if not DataGrid then
       for kRow, vRow in pairs(rows) do
         local row = DataRow()
         row.FromData(vRow)
-        self.data.rows[#self.data.rows + 1] = row
+        self.AddRow(row)
       end
     end
 

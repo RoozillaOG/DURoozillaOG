@@ -11,6 +11,7 @@ if not DataCell then
   --@param status string one of Normal, Warning, Alert
   function DataCell(text, status)
     local self = {
+      classname = "DataCell",
       ["data"] = {
         text = text,
         status = status or DataCellStatusNormal
@@ -32,9 +33,17 @@ if not DataCell then
     function self.SetStatus(status)
       self.data.status = status
     end
+        
+    function self.GetNotification()
+      return self.data.status
+    end
 
     function self.GetData()
       return self.data
+    end
+        
+    function self.GetClassName()
+      return self.classname
     end
 
     return self

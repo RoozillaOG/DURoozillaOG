@@ -8,6 +8,7 @@ if not DataRow then
 
   function DataRow(cells)
     local self = {
+      classname = "DataRow",
       ["data"] = {
         cells = cells or {}
       }
@@ -29,6 +30,14 @@ if not DataRow then
       return json.encode(self.data.cells)
     end
         
+    function self.GetCell(index)
+      return self.data.cells[index] or nil
+    end
+        
+    function self.GetClassName()
+      return self.classname
+    end
+        
     function self.GetData()
       local data = {}
       for k, v in pairs(self.data.cells) do
@@ -40,7 +49,7 @@ if not DataRow then
 
     function self.FromData(row)
       for kRow, kValue in pairs(row) do
-        self.data.cells[#self.data.cells + 1] = UiCell(kValue.text, kValue.status)
+        self.data.cells[#self.data.cells + 1] = DataCell(kValue.text, kValue.status)
       end
     end
 
