@@ -55,6 +55,14 @@ if not DataCell then
       return self.data.status
     end
 
+    function self.SetText(value)
+      self.data.text = value
+    end
+
+    function self.SetStatus(status)
+      self.data.status = status
+    end
+
     function self.GetData()
       return self.data
     end
@@ -98,7 +106,7 @@ if not UiTable2 then
       oddRowColor = nil,
       spacingInPixels = 5,
       pixelsPerFontSize = 1.0,
-      maxRowSize = 100,
+      maxRowSize = 45,
       fontName = fontname or "RefrigeratorDeluxe",
       fontColor = ColorRGBA().White()
     }
@@ -165,6 +173,22 @@ end
 
 --== end file ..\Ui\UiTable2.lua ==--
 
+--== start file ..\Industry\IndustryState.lua ==--
+
+if not IndustryState then
+  IndustryState = {
+   [1] = "Stopped",
+   [2] = "Running",
+   [3] = "Missing Ingredient",
+   [4] = "Ouptut Full",
+   [5] = "No Output Container",
+   [6] = "Pending",
+   [7] = "Missing Schematic" 
+  }
+end
+
+--== end file ..\Industry\IndustryState.lua ==--
+
 --== start file ..\Data\DataGrid.lua ==--
 
 --==require "./DataRow.lua"
@@ -175,7 +199,7 @@ if not DataGrid then
   DataGrid.__index = DataGrid
 
   function DataGrid(rows)
-    local self = {
+    self = {
       ["data"] = {
         rows = rows or {}
       }
@@ -186,7 +210,6 @@ if not DataGrid then
     end
 
     function self.NumColumns()
-            
       if(#self.rows > 0) then
         return self.data.rows[0].NumCells()
       end
@@ -196,7 +219,6 @@ if not DataGrid then
 
     function self.Encode()
       local data = {}
-            
       for k, v in pairs(self.data.rows) do
         data[#data + 1] = v.GetData()
       end
@@ -208,7 +230,7 @@ if not DataGrid then
       for kRow, vRow in pairs(rows) do
         local row = DataRow()
         row.FromData(vRow)
-        self.AddRow(row)
+        self.data.rows[#self.data.rows + 1] = row
       end
     end
 
@@ -368,6 +390,7 @@ end
 --==require "../Data/DataGrid.lua"
 --==require "../Data/DataRow.lua"
 --==require "../Data/DataCell.lua"
+--==require "../Industry/IndustryState.lua"
 
 local json = require("dkjson")
 
@@ -390,12 +413,17 @@ local dataGrid = DataGrid()
 dataGrid.FromRowData(json.decode(getInput()))
 
 local font = loadFont("Play", 70)
-local x, y = getFontSize(font)
+local y = getFontSize(font)
 
 setNextTextAlign(layer, AlignH_Center, AlignV_Top)
 local color = ColorRGBAWhite
 setNextStrokeColor(layer, color.r, color.g, color.b, color.a)
 addText(layer, font, "Industry Stocker", sx / 2.0, 0.0)
+
+-- set last cell (status) to text instead of index, keeping data size small
+for k, v in pairs(dataGrid.GetRows()) do
+  v[#v].SetText(IndustryState[v[#v].GetText()])
+end
 
 local dataTable = UiTable2(layer, 20.0, y + 20.0, sx - 20.0, sy - 20.0, dataGrid)
 dataTable.gridLines = true
