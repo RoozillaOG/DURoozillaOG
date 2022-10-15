@@ -84,7 +84,7 @@ stockers[#stockers + 1] = IndustryStocker(
 
   stockers[#stockers + 1] = IndustryStocker(
     "Refiner",
-    PureResource(),
+    PureResources(),
     sBasicRefiner1,
     containerData,
     {
