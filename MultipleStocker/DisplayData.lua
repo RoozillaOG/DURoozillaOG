@@ -8,10 +8,11 @@ if not DisplayData then
   DisplayData = {}
   DisplayData.__index = DisplayData
 
-  function DisplayData(stockers, display)
+  function DisplayData(stockers, containerData, display)
     local self = {
       stockers = stockers,
-      display = display
+      display = display,
+      containerData = containerData
     }
 
     function self.Update()
@@ -27,11 +28,15 @@ if not DisplayData then
         elseif (stateName == "Running") then
           notification = DataCellStatusGood
         else
-          notification = DataCellStatusWarning
+          notification = DataCellStatusAlert
         end
 
         row.AddCell(DataCell(v.GetName(), notification))
         row.AddCell(DataCell(v.GetCurrentItem(), notification))
+        row.AddCell(DataCell(
+                        self.containerData.GetQuantityForName(v.GetCurrentItem()), 
+                        notification)
+                    )
         row.AddCell(DataCell(v.GetStateName(), notification))
         dataGrid.AddRow(row)
       end

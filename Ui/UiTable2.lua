@@ -3,6 +3,9 @@ require "./ColorRGBA.lua"
 require "../Data/DataGrid.lua"
 require "../Data/DataCell.lua"
 require "../Data/DataRow.lua"
+require "./UiRow.lua"
+require "./UiCell.lua"
+
 local json = require("dkjson") 
 
 if not UiTable2 then

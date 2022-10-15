@@ -8,6 +8,7 @@ require "../Utils/ElectronicProducts.lua"
 require "../Utils/threeDPrinter.lua"
 require "../Container/ContainerData.lua"
 require "./DisplayData.lua"
+require "../Utils/PureResources.lua"
 
 DebugPrint("unit start")
 
@@ -69,6 +70,32 @@ stockers[#stockers + 1] = IndustryStocker(
     }
   )
 
+stockers[#stockers + 1] = IndustryStocker(
+    "Smelter",
+    Products(),
+    sSmelter,
+    containerData,
+    {
+        ["Steel product"] = 1000,
+        ["Al-Fe Alloy product"] = 1000, 
+        ["Silumin Product"] = 1000
+    }
+  )
+
+  stockers[#stockers + 1] = IndustryStocker(
+    "Refiner",
+    PureResource(),
+    sBasicRefiner1,
+    containerData,
+    {
+      ["Pure Aluminium"] = 1500,
+      ["Pure Carbon"] = 1500,
+      ["Pure Chromium"] = 1500,
+      ["Pure Copper"] = 1500,
+      ["Pure Iron"] = 1500
+    }
+  )
+
 --stockers[#stockers + 1] = IndustryStocker(
 --    "3DPrinter1",
 --    ThreeDPrinter(),
@@ -82,9 +109,9 @@ for k, v in pairs(stockers) do
   v.Update()
 end
 
-displayData = DisplayData(stockers, sDisplay1)
+displayData = DisplayData(stockers, containerData, sDisplay1)
 displayData.Update()
 
-unit.setTimer("Update", 30)
+unit.setTimer("Update", 10)
 
 

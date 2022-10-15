@@ -7,7 +7,7 @@ if not ContainerData then
   ContainerData.__index = ContainerData
 
   function ContainerData(dataBank, dataKey)
-    self = {
+    local self = {
       dataBank = dataBank,
       dataKey = dataKey,
       contents = nil,

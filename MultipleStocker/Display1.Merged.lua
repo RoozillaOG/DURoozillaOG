@@ -1,5 +1,32 @@
 
 
+--== start file ..\Ui\UiRow.lua ==--
+
+--==require "./UiCell.lua"
+
+if not UiRow then
+  UiRow = {}
+  UiRow.__index = UiRow
+
+  function UiRow(cells)
+    self = {
+      cells = cells or {}
+    }
+
+    function self.AddCell(cell) 
+      self.cells[#self.cells + 1] = cell
+    end
+
+    function self.NumCells()
+      return #self.cells
+    end
+
+    return self
+  end
+end
+
+--== end file ..\Ui\UiRow.lua ==--
+
 --== start file ..\Data\DataCell.lua ==--
 
 if not DataCell then
@@ -44,6 +71,9 @@ end
 --==require "../Data/DataGrid.lua"
 --==require "../Data/DataCell.lua"
 --==require "../Data/DataRow.lua"
+--==require "./UiRow.lua"
+--==require "./UiCell.lua"
+
 local json = require("dkjson") 
 
 if not UiTable2 then
@@ -145,7 +175,7 @@ if not DataGrid then
   DataGrid.__index = DataGrid
 
   function DataGrid(rows)
-    self = {
+    local self = {
       ["data"] = {
         rows = rows or {}
       }
@@ -156,6 +186,7 @@ if not DataGrid then
     end
 
     function self.NumColumns()
+            
       if(#self.rows > 0) then
         return self.data.rows[0].NumCells()
       end
@@ -164,14 +195,20 @@ if not DataGrid then
     end
 
     function self.Encode()
-      return self.data.rows.Encode()
+      local data = {}
+            
+      for k, v in pairs(self.data.rows) do
+        data[#data + 1] = v.GetData()
+      end
+            
+      return json.encode(data)
     end
 
-    function self.FromRowData(rows) 
-      for kRow, vRow in rows do
+    function self.FromRowData(rows)
+      for kRow, vRow in pairs(rows) do
         local row = DataRow()
         row.FromData(vRow)
-        self.data.rows[#self.data.rows + 1] = row
+        self.AddRow(row)
       end
     end
 
@@ -207,7 +244,7 @@ if not DataRow then
     }
 
     function self.AddCell(cell) 
-      self.cells[#self.data.cells + 1] = cell
+      self.data.cells[#self.data.cells + 1] = cell
     end
 
     function self.NumCells()
@@ -216,6 +253,19 @@ if not DataRow then
 
     function self.GetCells()
       return self.data.cells
+    end
+        
+    function self.Encode()
+      return json.encode(self.data.cells)
+    end
+        
+    function self.GetData()
+      local data = {}
+      for k, v in pairs(self.data.cells) do
+        data[#data + 1] = v.GetData()
+      end
+            
+      return data
     end
 
     function self.FromData(row)
@@ -265,6 +315,52 @@ end
 
 --== end file ..\Ui\ColorRGBA.lua ==--
 
+--== start file ..\Ui\UiCell.lua ==--
+
+--==require "./ColorRGBA.lua"
+
+if not UiCell then
+  UiCell = {}
+  UiCell.__index = UiCell
+
+  UiCellStatusNormal = "Normal"
+  UiCellStatusWarning = "Warning"
+  UiCellStatusAlert = "Alert"
+  UiCellStatusGood = "Good"
+
+  --@param status string one of Normal, Warning, Alert
+  function UiCell(font, data, status)
+    self = {
+      data = data,
+      font = font,
+      fontColor = ColorRGBAWhite,
+      fillColor = ColorRGBABlack,
+      status = status or UiCellStatusNormal
+    }
+  
+    if(status == UiCellStatusGood) then
+      self.fillColor = ColorRGBALightGreen      
+    elseif(status == UiCellStatusWarning) then
+      self.fillColor = ColorRGBALightYellow
+    elseif(status == UiCellStatusAlert) then
+      self.fillColor = ColorRGBALightRed
+    end
+    return self
+  end
+
+  function Draw(layer, fontSize, sx, sy, width, height)
+    setNextFillColor(layer, self.fillColor.r, self.fillColor.g, self.fillColor.b, self.fillColor.a)
+    addBox(layer, sx, sy, width, height)
+
+    setNextTextAlign(layer, AlignH_Left, AlignV_Top)
+    setNextStrokeColor(layer, self.fontColor.r, self.fontColor.g, self.fontColor.b, self.fontColor.a)
+    addText(layer, self.font, data, sx, sy)
+  end
+
+end
+
+--== end file ..\Ui\UiCell.lua ==--
+
 
 --== start file .\Display1.lua ==--
 
@@ -290,7 +386,8 @@ end
 local layer = createLayer()
 local sx,sy = getResolution()
 
-local dataGrid = IndustryDataToDataGrid(json.decode(getInput()))
+local dataGrid = DataGrid()
+dataGrid.FromRowData(json.decode(getInput()))
 
 local font = loadFont("Play", 70)
 local x, y = getFontSize(font)
