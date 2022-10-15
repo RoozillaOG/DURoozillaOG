@@ -22,10 +22,10 @@ local displayData = getInput()
 local displayObject = {}
 if (displayData) then
   displayObject = json.decode(displayData)
-  logMessage("DisplayData: " ..json.encode(displayObject))
+  logMessage("DisplayData: " .. json.encode(displayObject))
 end
 
-local dataTable = UiTable(layer, 20.0, x + 20.0, sx - 20.0, sy - 20.0, json.decode(getInput()))  
+local dataTable = UiTable(layer, 20.0, x + 20.0, sx - 20.0, sy - 20.0, json.decode(getInput()), 40)  
 dataTable.gridLines = true
 dataTable.oddRowColor = ColorRGBALightGreen
 dataTable.evenRowColor = ColorRGBALightBlue

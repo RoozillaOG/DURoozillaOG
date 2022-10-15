@@ -12,7 +12,7 @@ if not UiTable then
   ---@param ex number Ending x location of table 
   ---@param ey number Ending y location of table
   ---@param data table A table of rows containing a table of columns to dislay in the table
-  function UiTable(layer, sx, sy, ex, ey, data)
+  function UiTable(layer, sx, sy, ex, ey, data, fontSize)
     local self = {
       sx = sx or 0.0,
       sy = sy or 0.0,
@@ -24,7 +24,7 @@ if not UiTable then
       oddRowColor = nil,
       spacingInPixels = 5,
       pixelsPerFontSize = 1.0,
-      maxRowSize = 50,
+      maxRowSize = fontSize or 50,
       fontName = "Play",
       fontColor = ColorRGBA().White()
     }
@@ -33,10 +33,12 @@ if not UiTable then
       self.ex, self.ey = getResolution()
     end
 
-    local fontOne = loadFont(self.fontName, 50)
-    local fontTwo = loadFont(self.fontName, 100)
-    self.pixelsPerFontSize = (100 - 50) / (getFontSize(fontTwo) - getFontSize(fontOne))
-
+    if(fontSize == nil) then
+      local fontOne = loadFont(self.fontName, 50)
+      local fontTwo = loadFont(self.fontName, 100)
+      self.pixelsPerFontSize = (100 - 50) / (getFontSize(fontTwo) - getFontSize(fontOne))
+    end
+            
     function self.Draw()
       local numRows = #data
       local rowHeightInPixels = (ey - sy) / numRows
