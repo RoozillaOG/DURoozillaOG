@@ -30,7 +30,11 @@ for k, v in pairs(transferManagers) do
   v.Update()
 end
 
-displayData = DisplayData(sTransferUnit1, sDisplay1)
+displayData = DisplayData(
+  sTransferUnit1, 
+  containerMonitors["MainProductContainer1"], 
+  sDisplay1)
+  
 displayData.Update()
 
 unit.setTimer("CheckTransfer", 5)
