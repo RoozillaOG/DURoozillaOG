@@ -52,7 +52,7 @@ if not TransferManager then
           DebugPrint("Index: " .. self.currentIndex)
           DebugPrint("Transfering: " .. json.encode(self.contents[self.currentIndex]))
           DebugPrint("Transfering: " .. system.getItem(self.contents[self.currentIndex].id).displayName)
-          self.currentTransfer = (self.contents[self.currentIndex].id).displayName
+          self.currentTransfer = system.getItem(self.contents[self.currentIndex].id).displayName
           self.transferUnit.setOutput(self.contents[self.currentIndex].id)
           self.transferUnit.startFor(1)
           self.currentIndex = self.currentIndex + 1

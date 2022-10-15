@@ -13,12 +13,19 @@ logMessage(json.encode(getInput()))
 local font = loadFont("Play", 70)
 local x = getFontSize(font)
 
-setNextTextAlign(layer, AlignH_Left, AlignV_Top)
+setNextTextAlign(layer, AlignH_Center, AlignV_Top)
 local color = ColorRGBAWhite
 setNextStrokeColor(layer, color.r, color.g, color.b, color.a)
-addText(layer, font, "Refiner", 0.0, 0.0)
+addText(layer, font, "Container Management", sx / 2.0, 0.0)
 
-local dataTable = UiTable(layer, 20.0, x, sx - 20.0, sy - 20.0, json.decode(getInput()))  
+local displayData = getInput()
+local displayObject = {}
+if (displayData) then
+  displayObject = json.decode(displayData)
+  logMessage("DisplayData: " ..json.encode(displayObject))
+end
+
+local dataTable = UiTable(layer, 20.0, x + 20.0, sx - 20.0, sy - 20.0, json.decode(getInput()))  
 dataTable.gridLines = true
 dataTable.oddRowColor = ColorRGBALightGreen
 dataTable.evenRowColor = ColorRGBALightBlue

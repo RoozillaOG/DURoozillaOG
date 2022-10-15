@@ -1,6 +1,7 @@
 
 require "../Industry/TransferManager.lua"
 require "../Container/ContainerMonitor.lua"
+require "./DisplayData.lua"
 
 transferManagers = {}
 transferManagers["MainProductContainer1"] = TransferManager(
@@ -29,8 +30,11 @@ for k, v in pairs(transferManagers) do
   v.Update()
 end
 
+displayData = DisplayData(sTransferUnit1, sDisplay1)
+displayData.Update()
 
 unit.setTimer("CheckTransfer", 5)
 unit.setTimer("UpdateContainer", 35)
+unit.setTimer("UpdateDisplay", 10)
 
 

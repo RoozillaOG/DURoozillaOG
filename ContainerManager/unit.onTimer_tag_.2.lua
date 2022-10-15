@@ -1,7 +1,9 @@
 
 require "../Utils/DUDebug.lua"
 
-DebugPrint("Transfer update")
-transfer.Update()
+for k, v in pairs(transferManagers) do
+  DebugPrint(k .. "Updating transfer data")
+  v.Update()
+end
 
 
