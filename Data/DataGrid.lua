@@ -26,7 +26,12 @@ if not DataGrid then
     end
 
     function self.Encode()
-      return self.data.rows.Encode()
+      local data = {}
+      for k, v in pairs(self.data.rows) do
+        data[#data + 1] = v.GetData()
+      end
+            
+      return json.encode(data)
     end
 
     function self.FromRowData(rows)
