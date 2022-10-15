@@ -29,8 +29,8 @@ if not DataGrid then
       return self.data.rows.Encode()
     end
 
-    function self.FromRowData(rows) 
-      for kRow, vRow in rows do
+    function self.FromRowData(rows)
+      for kRow, vRow in pairs(rows) do
         local row = DataRow()
         row.FromData(vRow)
         self.data.rows[#self.data.rows + 1] = row

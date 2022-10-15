@@ -36,6 +36,10 @@ if not IndustryStocker then
       end
     end
 
+    function self.GetStateName()
+      return IndustryState[self.industryUnit.getState()]
+    end
+    
     function self.GetName()
       return self.name or ""
     end

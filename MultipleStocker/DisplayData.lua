@@ -1,5 +1,8 @@
 
 require "dkjson"
+require "../Data/DataCell.lua"
+require "../Data/DataRow.lua"
+require "../Data/DataGrid.lua"
 
 if not DisplayData then
   DisplayData = {}
@@ -12,17 +15,30 @@ if not DisplayData then
     }
 
     function self.Update()
+      local dataGrid = DataGrid()
       local displayData = {}
 
       for k, v in pairs(self.stockers) do
-        displayData[#displayData + 1] = {
-          v.GetName(),
-          v.GetCurrentItem()
-        }
+        local row = DataRow()
+        local stateName = v.GetStateName()
+        local notification = DataCellStatusNormal
+        if(stateName == "Stopped") then
+          notification = DataCellStatusNormal
+        elseif (stateName == "Running") then
+          notification = DataCellStatusGood
+        else
+          notification = DataCellStatusWarning
+        end
+
+        row.AddCell(DataCell(v.GetName(), notification))
+        row.AddCell(DataCell(v.GetCurrentItem(), notification))
+        row.AddCell(DataCell(v.GetStateName(), notification))
+        dataGrid.AddRow(row)
       end
 
-      DebugPrint("DisplayData: setting data = " .. json.encode(displayData))
-      self.display.setScriptInput(json.encode(displayData))
+      local jsonString = dataGrid.Encode()
+      DebugPrint("DisplayData: setting data = " .. jsonString)
+      self.display.setScriptInput(jsonString)
     end
 
     return self
