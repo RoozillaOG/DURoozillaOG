@@ -38,7 +38,7 @@ if not DisplayData then
                         math.floor(self.containerData.GetQuantityForName(v.GetCurrentItem())), 
                        notification)
                     )
-        row.AddCell(DataCell(v.GetStateId, notification))
+        row.AddCell(DataCell(v.GetStateId(), notification))
         dataGrid.AddRow(row)
       end
 
