@@ -13,8 +13,12 @@ if not TransferManager then
       inputContainer = inputContainer,
       contents = inputContainer.getContent() or {},
       currentIndex = 1,
-      current = ""
+      currentTransfer = ""
     }
+
+    function self.GetCurrentTransfer() 
+      return self.currentTransfer
+    end
 
     function self.Update()
       if(self.contents == nil or #self.contents < 1) then
@@ -48,6 +52,7 @@ if not TransferManager then
           DebugPrint("Index: " .. self.currentIndex)
           DebugPrint("Transfering: " .. json.encode(self.contents[self.currentIndex]))
           DebugPrint("Transfering: " .. system.getItem(self.contents[self.currentIndex].id).displayName)
+          self.currentTransfer = (self.contents[self.currentIndex].id).displayName
           self.transferUnit.setOutput(self.contents[self.currentIndex].id)
           self.transferUnit.startFor(1)
           self.currentIndex = self.currentIndex + 1
