@@ -5,11 +5,11 @@ if not DisplayData then
   DisplayData = {}
   DisplayData.__index = DisplayData
 
-  function DisplayData(transferUnit, container, display)
+  function DisplayData(transferUnit, containers, display)
     local self = {
       transferUnit = transferUnit,
       display = display,
-      container = container
+      containers = containers
     }
 
     function self.Update()
@@ -25,9 +25,12 @@ if not DisplayData then
       end
 
       local displayData = {
-        data,
-        {"DataBank Key", self.container.GetDataBankKey()}
+        data
       }
+            
+      for k, v in pairs(self.containers) do
+        displayData[#displayData + 1] = {v.GetContainerName(), v.GetDataBankKey()}
+      end
       self.display.setScriptInput(json.encode(displayData))
     end
     

@@ -24,6 +24,10 @@ if not ContainerMonitor then
     function self.GetContainer()
       return self.container
     end
+            
+    function self.GetContainerName()
+      return self.containerName
+    end
 
     function self.GetContent()
       if(self.dataBank.hasKey(self.dataBankKey)) then

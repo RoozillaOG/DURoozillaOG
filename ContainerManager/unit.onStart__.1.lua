@@ -6,7 +6,7 @@ require "./DisplayData.lua"
 transferManagers = {}
 transferManagers["MainProductContainer1"] = TransferManager(
                                               sTransferUnit1,
-                                              sInputContainer1
+                                              sTemporaryContainer1
                                             )
 
 
@@ -17,6 +17,12 @@ containerMonitors["MainProductContainer1"] = ContainerMonitor(
                                                sMainProductContainer1, 
                                                sDataBank
                                              )
+
+containerMonitors["TemporaryContainer1"] = ContainerMonitor(
+                                             "TemporaryContainer1",
+                                             sTemporaryContainer1,
+                                             sDataBank
+                                           )
 
 
 for k, v in pairs(containerMonitors) do
@@ -32,7 +38,7 @@ end
 
 displayData = DisplayData(
   sTransferUnit1, 
-  containerMonitors["MainProductContainer1"], 
+  containerMonitors, 
   sDisplay1)
   
 displayData.Update()
