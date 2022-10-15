@@ -61,7 +61,6 @@ for k, v in pairs(monitors) do
   v.Update()
 end
 
-unit.setTimer("ContainerUpdate", 31)
 unit.setTimer("IndustryUpdate", 10)
 
 
