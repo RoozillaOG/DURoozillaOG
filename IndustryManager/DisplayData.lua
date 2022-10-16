@@ -1,6 +1,5 @@
 
 local json = require("dkjson")
-require "../Mock/industry.lua"
 require "../Industry/IndustryData.lua"
 
 if not DisplayData then

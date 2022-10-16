@@ -1,5 +1,0 @@
-
--- Container Update --
-outputContents.Update()
-
-
