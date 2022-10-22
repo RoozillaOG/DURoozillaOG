@@ -1,5 +1,7 @@
 # RoozillaOG Dual Universe lua Code and Modules
 
+[Skip to Class and Module API Documentation](./doc/index.html)
+
 # Overview
 
 This repo contains a number of lua modules, PB and Display modules, helper powershell modules.
