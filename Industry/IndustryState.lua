@@ -1,3 +1,4 @@
+
 --- Mapping from industry state number to text description
 -- @module IndustryState
 

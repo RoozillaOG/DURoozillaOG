@@ -1,3 +1,4 @@
+
 --- Contains the data used to transfer between PB and display screen
 -- @classmod ContainerManager.DisplayData
 

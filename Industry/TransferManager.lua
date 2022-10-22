@@ -19,7 +19,7 @@ if not TransferManager then
     local self = {
       transferUnit = transferUnit,
       inputContainer = inputContainer,
-      contents = inputContainer.getContent() or {},
+      contents = json.decode(inputContainer.GetContent()),
       currentIndex = 1,
       currentTransfer = ""
     }
@@ -36,15 +36,17 @@ if not TransferManager then
         DebugPrint("Input contents empty")
         self.currentIndex = 1
         self.transferUnit.stop(true, true)
-        self.contents = self.inputContainer.getContent()
+        self.contents = json.decode(self.inputContainer.GetContent())
         return
       end
             
       if(#self.contents < self.currentIndex) then
         DebugPrint("Resetting index and getting new contents")
-        self.contents = self.inputContainer.getContent()
+        self.contents = json.decode(self.inputContainer.GetContent())
         self.currentIndex = 1
       end
+            
+            DebugPrint("stuff: " .. json.encode(self.contents))
 
       if(IndustryState[self.transferUnit.getState()] ~= "Running") then
         self.transferUnit.stop(true, true)

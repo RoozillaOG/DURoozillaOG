@@ -1,3 +1,4 @@
+
 --- The main portion of code that creates the transfer units and container monitor lists.
 -- timers will update the data periodically and modify what is being transfered.
 -- @module ContainerManager.unit.OnStart
@@ -6,26 +7,27 @@ require "../../Industry/TransferManager.lua"
 require "../../Container/ContainerMonitor.lua"
 require "./DisplayData.lua"
 
-transferManagers = {}
-transferManagers["MainProductContainer1"] = TransferManager(
-                                              sTransferUnit1,
-                                              sTemporaryContainer1
-                                            )
-
-
 containerMonitors = {}
-
-containerMonitors["MainProductContainer1"] = ContainerMonitor(
-                                               "MainProductContainer1", 
-                                               sMainProductContainer1, 
-                                               sDataBank
-                                             )
+transferManagers = {}
 
 containerMonitors["TemporaryContainer1"] = ContainerMonitor(
                                              "TemporaryContainer1",
                                              sTemporaryContainer1,
                                              sDataBank
                                            )
+
+
+transferManagers["MainProductContainer1"] = TransferManager(
+                                              sTransferUnit1,
+                                              containerMonitors["TemporaryContainer1"]
+                                            )
+
+
+containerMonitors["MainProductContainer1"] = ContainerMonitor(
+                                               "MainProductContainer1", 
+                                               sMainProductContainer1, 
+                                               sDataBank
+                                             )
 
 
 for k, v in pairs(containerMonitors) do
