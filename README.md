@@ -1,6 +1,6 @@
 # RoozillaOG Dual Universe lua Code and Modules
 
-[Skip to Class and Module Documentation](#code-documentation)
+[Skip to Class and Module API Documentation](./doc/index.html)
 
 # Overview
 
