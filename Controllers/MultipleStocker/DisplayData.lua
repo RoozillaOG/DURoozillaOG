@@ -2,7 +2,7 @@
 -- Contains the data to pass to/from the PB and the Display unit
 -- @classmod MultipleStocker.DisplayData
 
-require "dkjson"
+local json = require "dkjson"
 require "../../Data/DataCell.lua"
 require "../../Data/DataRow.lua"
 require "../../Data/DataGrid.lua"

@@ -1,7 +1,7 @@
 --- Contains the data used to transfer between PB and display screen
 -- @classmod ContainerManager.DisplayData
 
-require "dkjson"
+local json = require("dkjson")
 
 if not DisplayData then
   DisplayData = {}

@@ -4,7 +4,7 @@
 -- to transfer to the output container it is linked to.
 -- @classmod TransferManager
 
-equire "dkjson"
+json = require "dkjson"
 require "../Utils/DUDebug.lua"
 require "../Industry/IndustryState.lua"
 
