@@ -1,5 +1,10 @@
 
-require "dkjson"
+--- Transfer items automatically from an input container to an output container
+-- It checks an input container for contents and attempts to set the transfer unit
+-- to transfer to the output container it is linked to.
+-- @classmod TransferManager
+
+equire "dkjson"
 require "../Utils/DUDebug.lua"
 require "../Industry/IndustryState.lua"
 
@@ -7,6 +12,9 @@ if not TransferManager then
   TransferManager = {}
   TransferManager.__index = TransferManager
 
+  --- Return a new TransferManager object
+  ---@param transferUnit DU::Industry The transfer unit DU Industry object
+  ---@param inputContainer DU::Container The input container to transfer contents from
   function TransferManager(transferUnit, inputContainer)
     local self = {
       transferUnit = transferUnit,
@@ -16,10 +24,13 @@ if not TransferManager then
       currentTransfer = ""
     }
 
+    --- Get the current items being transfered
+    -- @return string The current item being transfered
     function self.GetCurrentTransfer() 
       return self.currentTransfer
     end
 
+    --- Updates the states and changes transfer item as needed
     function self.Update()
       if(self.contents == nil or #self.contents < 1) then
         DebugPrint("Input contents empty")

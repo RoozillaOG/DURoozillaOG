@@ -1,10 +1,20 @@
 
+--- Keeps item in a given list stocked in a given output containerData
+-- @classmod IndustryStocker
+
 require "../Utils/DUDebug.lua"
 
 if not IndustryStocker then
   IndustryStocker = {}
   IndustryStocker.__index = IndustryStocker
 
+  --- Create a new IndustryStocker
+  ---@param name string The name of the stocker
+  ---@param resourceMapper resourceObject The resource object that maps id to DisplayName
+  -- @see PureResource.lua
+  ---@param industryUnit DU::Industry The DU Industry object to stock
+  ---@param containerData ContainerData The ContainerData object to use to monitor current level of items
+  ---@param items table The table of display name -> desired quantity to determine when to restock
   function IndustryStocker(name, resourceMapper, industryUnit, containerData, items)
     local self = {
       name = name,
@@ -14,7 +24,8 @@ if not IndustryStocker then
       containerData = containerData,
       currentItem = ""
     }
-        
+    
+    --- Update the state of the stocker, selecting a new output if needed
     function self.Update()
       DebugPrint("IndustryStocker: Update(): " .. self.name)
       if(IndustryState[self.industryUnit.getState()] ~= "Running") then
@@ -37,18 +48,26 @@ if not IndustryStocker then
       end
     end
 
+    --- Get the name of the current state of the DU::Industry
+    -- @return string The state name (i.e. Running)
     function self.GetStateName()
       return IndustryState[self.industryUnit.getState()]
     end
 
+    --- Get the state id
+    -- @return number The state number
     function self.GetStateId()
       return self.industryUnit.getState()
     end
     
+    --- Get the name of the stocker
+    -- @return string The name of the stocker
     function self.GetName()
       return self.name or ""
     end
 
+    --- Get the current item set in the Industry
+    -- @return string The display name of the item currently being produced by Industry object
     function self.GetCurrentItem()
       local output = self.industryUnit.getOutputs()
       if(output == nil or #output == 0) then

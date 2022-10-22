@@ -1,3 +1,8 @@
+--- Simple UiTable without notification data
+-- Takes a DataGrid and creates a table for display at the given start x,y coords
+-- and ending x,y coords
+-- Has facilities to provide alternating colors in table
+-- @classmod UiTable
 
 require "./ColorRGBA.lua"
 local json = require("dkjson") 
@@ -6,12 +11,14 @@ if not UiTable then
   UiTable = {}
   UiTable.__index = UiTable
 
+  --- Create a new UiTable
   ---@param layer any The layer to draw to
   ---@param sx number Starting x location of table
   ---@param sy number Starting y location of table
   ---@param ex number Ending x location of table 
   ---@param ey number Ending y location of table
   ---@param data table A table of rows containing a table of columns to dislay in the table
+  ---@param fontSize number The size of the font in pixels
   function UiTable(layer, sx, sy, ex, ey, data, fontSize)
     local self = {
       sx = sx or 0.0,
@@ -39,6 +46,7 @@ if not UiTable then
       self.pixelsPerFontSize = (100 - 50) / (getFontSize(fontTwo) - getFontSize(fontOne))
     end
             
+    --- Draw the table
     function self.Draw()
       local numRows = #data
       local rowHeightInPixels = (ey - sy) / numRows
@@ -47,7 +55,7 @@ if not UiTable then
       end
 
       local textHeightInPixles = rowHeightInPixels - self.spacingInPixels
-      local fontSize = textHeightInPixles / self.pixelsPerFontSize
+      local fontSize = self.fontSize or (textHeightInPixles / self.pixelsPerFontSize)
 
       local font = loadFont(self.fontName, fontSize)
       local cy = sy

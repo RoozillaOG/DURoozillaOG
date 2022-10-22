@@ -1,8 +1,12 @@
+--- Parts class used to map to/from id and Display Name
+-- @classmod Parts
 
 if not Parts then
   Parts = {}
   Parts.__index = Parts
 
+  --- Parts Constructor
+  -- Creates a new instance of the Parts class
   function Parts()
     local self = {
       idToDisplayName = {
@@ -23,6 +27,10 @@ if not Parts then
       }
     }
 
+    --- GetId
+    -- Maps display name to id. Returns -1 if display name was not in the table.
+    ---@param displayName string the display name to retrieve id for
+    -- @return an id that represents the element
     function self.GetId(displayName)
       if(self.displayNameToId[displayName]) then
         return self.displayNameToId[displayName].id
@@ -30,6 +38,10 @@ if not Parts then
       return -1
     end
 
+    --- GetDisplayName
+    -- Maps id to display name. Will call system.getItem() if necessary.
+    ---@param id number the id to retrieve display name for
+    -- @return a string that is the Display Name of the item
     function self.GetDisplayName(id)
       if(self.idToDisplayName[id]) then
         return self.idToDisplayName[id].displayNameWithSize

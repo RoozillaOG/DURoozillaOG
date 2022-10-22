@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/DataCell.html">DataCell</a></li>
+  <li><strong>DataGrid</strong></li>
+  <li><a href="../classes/DataRow.html">DataRow</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>DataGrid</code></h1>
+<p>A grid of data represented by rows of columns</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#self.AddRow">self.AddRow (row)</a></td>
+	<td class="summary">Add a new row of data to the end</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.NumColumns">self.NumColumns ()</a></td>
+	<td class="summary">Get the number of columns determined by the first row</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.NumRows">self.NumRows ()</a></td>
+	<td class="summary">Get the number of rows in the grid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetRows">self.GetRows ()</a></td>
+	<td class="summary">Get the rows in the DataGrid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetClassName">self.GetClassName ()</a></td>
+	<td class="summary">Get the classname of this object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.Encode">self.Encode ()</a></td>
+	<td class="summary">Encodes the DataGrid to a json string</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.FromRowData">self.FromRowData (rows)</a></td>
+	<td class="summary">Initializes the DataGrid from the given row data (table data only)</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#DataGrid:DataGrid">DataGrid:DataGrid (rows)</a></td>
+	<td class="summary">Create a new DataGrid</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "self.AddRow"></a>
+    <strong>self.AddRow (row)</strong>
+    </dt>
+    <dd>
+    Add a new row of data to the end
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">row</span>
+         DataRow The row to add
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.NumColumns"></a>
+    <strong>self.NumColumns ()</strong>
+    </dt>
+    <dd>
+    Get the number of columns determined by the first row
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        number The number of columns
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.NumRows"></a>
+    <strong>self.NumRows ()</strong>
+    </dt>
+    <dd>
+    Get the number of rows in the grid
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        number The number of rows in the DataGrid
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetRows"></a>
+    <strong>self.GetRows ()</strong>
+    </dt>
+    <dd>
+    Get the rows in the DataGrid
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        DataRow Return list of DataRow
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetClassName"></a>
+    <strong>self.GetClassName ()</strong>
+    </dt>
+    <dd>
+    Get the classname of this object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string The classname of this object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.Encode"></a>
+    <strong>self.Encode ()</strong>
+    </dt>
+    <dd>
+    Encodes the DataGrid to a json string
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string The json represented the encoded DataGrid
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.FromRowData"></a>
+    <strong>self.FromRowData (rows)</strong>
+    </dt>
+    <dd>
+    Initializes the DataGrid from the given row data (table data only)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rows</span>
+         table The table containing the row and columen data to initialize DataGrid with
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "DataGrid:DataGrid"></a>
+    <strong>DataGrid:DataGrid (rows)</strong>
+    </dt>
+    <dd>
+    Create a new DataGrid
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rows</span>
+         DataRow Create from an existing row of data or nil
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2022-10-16 11:22:45 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

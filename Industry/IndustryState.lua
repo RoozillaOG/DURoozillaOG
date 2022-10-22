@@ -1,5 +1,11 @@
+--- Mapping from industry state number to text description
+-- @module IndustryState
 
 if not IndustryState then
+
+  --- The table mapping status number to text description
+  -- @field IndustryState
+
   IndustryState = {
    [1] = "Stopped",
    [2] = "Running",

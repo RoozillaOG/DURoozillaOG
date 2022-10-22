@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>DataCell</strong></li>
+  <li><a href="../classes/DataGrid.html">DataGrid</a></li>
+  <li><a href="../classes/DataRow.html">DataRow</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>DataCell</code></h1>
+<p>Single cell of text and associated status used for highlighting</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#self.GetText">self.GetText ()</a></td>
+	<td class="summary">Return the text of the cell</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.SetText">self.SetText (value)</a></td>
+	<td class="summary">Set the text of the cell</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetNotification">self.GetNotification ()</a></td>
+	<td class="summary">Return the notification status of the cell</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.SetNotification">self.SetNotification (status)</a></td>
+	<td class="summary">Set the status of the cell, used for highlighting</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetData">self.GetData ()</a></td>
+	<td class="summary">Returns the data object containing text and status</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetClassName">self.GetClassName ()</a></td>
+	<td class="summary">The classname</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#DataCell.DataCellStatusNormal">DataCell.DataCellStatusNormal</a></td>
+	<td class="summary">Normal Status</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#DataCell.DataCellStatusWarning">DataCell.DataCellStatusWarning</a></td>
+	<td class="summary">Warning Status</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#DataCell.DataCellStatusAlert">DataCell.DataCellStatusAlert</a></td>
+	<td class="summary">Alert Status</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#DataCell.DataCellStatusGood">DataCell.DataCellStatusGood</a></td>
+	<td class="summary">All Good Status</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#DataCell:DataCell">DataCell:DataCell (text, status)</a></td>
+	<td class="summary">A single cell of data</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "self.GetText"></a>
+    <strong>self.GetText ()</strong>
+    </dt>
+    <dd>
+    Return the text of the cell
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string The text
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.SetText"></a>
+    <strong>self.SetText (value)</strong>
+    </dt>
+    <dd>
+    Set the text of the cell
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         string The text
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetNotification"></a>
+    <strong>self.GetNotification ()</strong>
+    </dt>
+    <dd>
+    Return the notification status of the cell
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+         string The status, one of
+        DataCellStatusNormal
+        DataCellStatusWarning
+        DataCellStatusAlert
+        DataCellStatusGood
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.SetNotification"></a>
+    <strong>self.SetNotification (status)</strong>
+    </dt>
+    <dd>
+    Set the status of the cell, used for highlighting
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">status</span>
+         string The status to set, one of
+        DataCellStatusNormal
+        DataCellStatusWarning
+        DataCellStatusAlert
+        DataCellStatusGood
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetData"></a>
+    <strong>self.GetData ()</strong>
+    </dt>
+    <dd>
+    Returns the data object containing text and status
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table The table of text and status
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetClassName"></a>
+    <strong>self.GetClassName ()</strong>
+    </dt>
+    <dd>
+    The classname
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string Name of this class
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "DataCell.DataCellStatusNormal"></a>
+    <strong>DataCell.DataCellStatusNormal</strong>
+    </dt>
+    <dd>
+    Normal Status
+
+
+    <ul>
+        <li><span class="parameter">DataCellStatusNormal</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "DataCell.DataCellStatusWarning"></a>
+    <strong>DataCell.DataCellStatusWarning</strong>
+    </dt>
+    <dd>
+    Warning Status
+
+
+    <ul>
+        <li><span class="parameter">DataCellStatusWarning</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "DataCell.DataCellStatusAlert"></a>
+    <strong>DataCell.DataCellStatusAlert</strong>
+    </dt>
+    <dd>
+    Alert Status
+
+
+    <ul>
+        <li><span class="parameter">DataCellStatusAlert</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "DataCell.DataCellStatusGood"></a>
+    <strong>DataCell.DataCellStatusGood</strong>
+    </dt>
+    <dd>
+    All Good Status
+
+
+    <ul>
+        <li><span class="parameter">DataCellStatusGood</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "DataCell:DataCell"></a>
+    <strong>DataCell:DataCell (text, status)</strong>
+    </dt>
+    <dd>
+    A single cell of data
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">text</span>
+         string The text to store in the cell
+        </li>
+        <li><span class="parameter">status</span>
+         string The status of the cell, one of
+        DataCellStatusNormal
+        DataCellStatusWarning
+        DataCellStatusAlert
+        DataCellStatusGood
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2022-10-16 11:22:45 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

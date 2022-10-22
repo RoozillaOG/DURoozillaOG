@@ -1,8 +1,12 @@
+--- MetalWorks class used to map to/from id and Display Name
+-- @classmod MetalWorks
 
 if not MetalWorks then
   MetalWorks = {}
   MetalWorks.__index = MetalWorks
 
+  --- MetalWorks Constructor
+  -- Creates a new instance of the MetalWorks class
   function MetalWorks()
     local self = {
       idToDisplayName = {
@@ -129,6 +133,10 @@ if not MetalWorks then
       }
     }
 
+    --- GetId
+    -- Maps display name to id. Returns -1 if display name was not in the table.
+    ---@param displayName string the display name to retrieve id for
+    -- @return an id that represents the element
     function self.GetId(displayName)
       if(self.displayNameToId[displayName]) then
         return self.displayNameToId[displayName].id
@@ -136,6 +144,10 @@ if not MetalWorks then
       return -1
     end
 
+    --- GetDisplayName
+    -- Maps id to display name. Will call system.getItem() if necessary.
+    ---@param id number the id to retrieve display name for
+    -- @return a string that is the Display Name of the item
     function self.GetDisplayName(id)
       if(self.idToDisplayName[id]) then
         return self.idToDisplayName[id].displayNameWithSize

@@ -1,8 +1,13 @@
 
+--- ElectronicsProducts class used to map to/from id and Display Name
+-- @classmod ElectronicsProducts
+
 if not ElectronicProducts then
   ElectronicProducts = {}
   ElectronicProducts.__index = ElectronicProducts
 
+  --- ElectronicProducts
+  -- Creates a new instance of the ElectronicProducts class
   function ElectronicProducts()
     local self = {
       idToDisplayName = {
@@ -47,6 +52,10 @@ if not ElectronicProducts then
       }
     }
 
+    --- GetId
+    -- Maps display name to id. Returns -1 if display name was not in the table.
+    ---@param displayName string the display name to retrieve id for
+    -- @return an id that represents the element
     function self.GetId(displayName)
       if(self.displayNameToId[displayName]) then
         return self.displayNameToId[displayName].id
@@ -54,6 +63,10 @@ if not ElectronicProducts then
       return -1
     end
 
+    --- GetDisplayName
+    -- Maps id to display name. Will call system.getItem() if necessary.
+    ---@param id number the id to retrieve display name for
+    -- @return a string that is the Display Name of the item
     function self.GetDisplayName(id)
       if(self.idToDisplayName[id]) then
         return self.idToDisplayName[id].displayNameWithSize

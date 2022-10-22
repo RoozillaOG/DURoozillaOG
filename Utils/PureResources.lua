@@ -1,8 +1,12 @@
+--- PureResources class used to map to/from id and Display Name
+-- @classmod PureResources
 
 if not PureResources then
   PureResources = {}
   PureResources.__index = PureResources
 
+  --- PureResources Constructor
+  -- Creates a new instance of the PureResources class
   function PureResources()
     local self = {
       idToData = {
@@ -55,6 +59,10 @@ if not PureResources then
       }
     }
 
+    --- GetId
+    -- Maps display name to id. Returns -1 if display name was not in the table.
+    ---@param displayName string the display name to retrieve id for
+    -- @return an id that represents the element
     function self.GetId(displayName)
       if(self.displayNameToData[displayName]) then
         return self.displayNameToData[displayName].id
@@ -62,6 +70,10 @@ if not PureResources then
       return -1
     end
 
+    --- GetDisplayName
+    -- Maps id to display name. Will call system.getItem() if necessary.
+    ---@param id number the id to retrieve display name for
+    -- @return a string that is the Display Name of the item
     function self.GetDisplayName(id)
       if(self.idToData[id]) then
         return self.idToData[id].displayNameWithSize

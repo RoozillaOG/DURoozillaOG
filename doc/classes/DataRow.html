@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/DataCell.html">DataCell</a></li>
+  <li><a href="../classes/DataGrid.html">DataGrid</a></li>
+  <li><strong>DataRow</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>DataRow</code></h1>
+<p>A single row of DataCells</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#self.AddCell">self.AddCell (cell)</a></td>
+	<td class="summary">Add a cell to the end of the cell list</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.NumCells">self.NumCells ()</a></td>
+	<td class="summary">Get the number of cells in the row</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetCells">self.GetCells ()</a></td>
+	<td class="summary">Get all the cells in the row</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.Encode">self.Encode ()</a></td>
+	<td class="summary">Encode the DataRow to json</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetCell">self.GetCell (index)</a></td>
+	<td class="summary">Get a single cell at the given index</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetClassName">self.GetClassName ()</a></td>
+	<td class="summary">Return the classname of this object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetData">self.GetData ()</a></td>
+	<td class="summary">Return the data consisting of a table of DataCells</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.FromData">self.FromData (row)</a></td>
+	<td class="summary">Unitialize from a set of row data (not class)</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#DataRow:DataRow">DataRow:DataRow (cells)</a></td>
+	<td class="summary">Create a new DataRow object from the given list of cells</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "self.AddCell"></a>
+    <strong>self.AddCell (cell)</strong>
+    </dt>
+    <dd>
+    Add a cell to the end of the cell list
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cell</span>
+         DataCell The cell to add
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.NumCells"></a>
+    <strong>self.NumCells ()</strong>
+    </dt>
+    <dd>
+    Get the number of cells in the row
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        number The number of cells in the row
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetCells"></a>
+    <strong>self.GetCells ()</strong>
+    </dt>
+    <dd>
+    Get all the cells in the row
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        DataCell List of DataCells
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.Encode"></a>
+    <strong>self.Encode ()</strong>
+    </dt>
+    <dd>
+    Encode the DataRow to json
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string Json representation of the DataRow
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetCell"></a>
+    <strong>self.GetCell (index)</strong>
+    </dt>
+    <dd>
+    Get a single cell at the given index
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+         number The 1-based index of the cell to return
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetClassName"></a>
+    <strong>self.GetClassName ()</strong>
+    </dt>
+    <dd>
+    Return the classname of this object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string The classname of this object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetData"></a>
+    <strong>self.GetData ()</strong>
+    </dt>
+    <dd>
+    Return the data consisting of a table of DataCells
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        DataCell List
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.FromData"></a>
+    <strong>self.FromData (row)</strong>
+    </dt>
+    <dd>
+    Unitialize from a set of row data (not class)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">row</span>
+         table A table of just the data for the row
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "DataRow:DataRow"></a>
+    <strong>DataRow:DataRow (cells)</strong>
+    </dt>
+    <dd>
+    Create a new DataRow object from the given list of cells
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cells</span>
+         DataCell List of data cells making up the row
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2022-10-16 11:22:45 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,10 +1,15 @@
-
+--- Used to read container contents from a DataBank populated by ContainerMonitor
+-- @classmod ContainerData
 require "dkjson"
 require "../Utils/DUDebug.lua"
 
 if not ContainerData then
   ContainerData = {}
   ContainerData.__index = ContainerData
+
+  --- Creates a new ContainerData object
+  ---@param dataBank DU::DataBank reference from a slot to a DataBank in PB
+  ---@param dataKey string used to read from the DataBank
 
   function ContainerData(dataBank, dataKey)
     local self = {
@@ -13,6 +18,9 @@ if not ContainerData then
       contents = nil,
       displayNameToId = {}
     }
+
+    --- Update object data from DataBank contents
+    -- @return none
 
     function self.Update()
       if(not self.dataBank.hasKey(self.dataKey)) then
@@ -36,6 +44,10 @@ if not ContainerData then
       end
     end
 
+    --- Returns quantity of an item by id
+    ---@param id number The id of the item to retrieve quantity for
+    -- @return number that is the quanity of the item
+
     function self.GetQuantityForId(id)
       if(not self.contents) then
         DebugPrint("ContainerData: " .. self.dataKey .. " no contents")
@@ -49,6 +61,10 @@ if not ContainerData then
 
       return self.contents[id].quantity
     end
+
+    --- Return quantity of an item by Display Name
+    ---@param name string The name of the item to retrieve quantity for
+    -- @return number that is the quanity of the item
 
     function self.GetQuantityForName(name)
       local id = self.displayNameToId[name]

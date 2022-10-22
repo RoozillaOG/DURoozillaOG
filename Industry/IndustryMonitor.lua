@@ -1,4 +1,7 @@
 
+--- Monitors the given industryUnit and stores content data to dataBank
+-- @classmod IndustryMonitor
+
 require "../Utils/DUDebug.lua"
 require "../Data/DataCell.lua"
 require "./IndustryData.lua"
@@ -8,6 +11,10 @@ if not IndustryMonitor then
   IndustryMonitor = {}
   IndustryMonitor.__index = IndustryMonitor
 
+  --- Returns a new IndustryMonitor object
+  ---@param name string The short name of the industry
+  ---@param industryUnit DU::Industry The DU industry object to monitor
+  ---@param dataBank DU::DataBank The DataBank to store industry information to
   function IndustryMonitor(name, industryUnit, dataBank)
     local self = {
       name = name,
@@ -15,6 +22,8 @@ if not IndustryMonitor then
       dataBank = dataBank
     }
         
+    --- Update the data on the industry unit. 
+    -- Stores information like state, status, output, selected item
     function self.Update()
       system.print("Metalworks: Update()")
       if(self.dataBank) then

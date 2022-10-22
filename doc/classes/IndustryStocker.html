@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/IndustryData.html">IndustryData</a></li>
+  <li><a href="../classes/IndustryMonitor.html">IndustryMonitor</a></li>
+  <li><strong>IndustryStocker</strong></li>
+  <li><a href="../classes/TransferManager.html">TransferManager</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/IndustryState.html">IndustryState</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>IndustryStocker</code></h1>
+<p>Keeps item in a given list stocked in a given output containerData</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#self.Update">self.Update ()</a></td>
+	<td class="summary">Update the state of the stocker, selecting a new output if needed</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetStateName">self.GetStateName ()</a></td>
+	<td class="summary">Get the name of the current state of the DU::Industry</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetStateId">self.GetStateId ()</a></td>
+	<td class="summary">Get the state id</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetName">self.GetName ()</a></td>
+	<td class="summary">Get the name of the stocker</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#self.GetCurrentItem">self.GetCurrentItem ()</a></td>
+	<td class="summary">Get the current item set in the Industry</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#IndustryStocker:IndustryStocker">IndustryStocker:IndustryStocker (name, resourceMapper, industryUnit, containerData, items)</a></td>
+	<td class="summary">Create a new IndustryStocker</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "self.Update"></a>
+    <strong>self.Update ()</strong>
+    </dt>
+    <dd>
+    Update the state of the stocker, selecting a new output if needed
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetStateName"></a>
+    <strong>self.GetStateName ()</strong>
+    </dt>
+    <dd>
+    Get the name of the current state of the DU::Industry
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string The state name (i.e. Running)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetStateId"></a>
+    <strong>self.GetStateId ()</strong>
+    </dt>
+    <dd>
+    Get the state id
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        number The state number
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetName"></a>
+    <strong>self.GetName ()</strong>
+    </dt>
+    <dd>
+    Get the name of the stocker
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string The name of the stocker
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "self.GetCurrentItem"></a>
+    <strong>self.GetCurrentItem ()</strong>
+    </dt>
+    <dd>
+    Get the current item set in the Industry
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string The display name of the item currently being produced by Industry object
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "IndustryStocker:IndustryStocker"></a>
+    <strong>IndustryStocker:IndustryStocker (name, resourceMapper, industryUnit, containerData, items)</strong>
+    </dt>
+    <dd>
+    Create a new IndustryStocker
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+         string The name of the stocker
+        </li>
+        <li><span class="parameter">resourceMapper</span>
+         resourceObject The resource object that maps id to DisplayName
+        </li>
+        <li><span class="parameter">industryUnit</span>
+         DU::Industry The DU Industry object to stock
+        </li>
+        <li><span class="parameter">containerData</span>
+         ContainerData The ContainerData object to use to monitor current level of items
+        </li>
+        <li><span class="parameter">items</span>
+         table The table of display name -> desired quantity to determine when to restock
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+    </ul>
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2022-10-16 11:46:10 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

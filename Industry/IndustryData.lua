@@ -1,3 +1,5 @@
+--- Converts industry data to a DataGrid for encoding and display
+-- @classmod IndustryData
 
 require "../Data/DataGrid.lua"
 require "../Data/DataRow.lua"
@@ -7,6 +9,7 @@ if not IndustryData then
   IndustryData = {}
   IndustryData.__index = IndustryData
 
+  --- Create a new IndustryData object
   function IndustryData()
     local self = {
       name = "",
@@ -18,6 +21,9 @@ if not IndustryData then
     return self
   end
 
+  --- Convert raw data to a DataGrid
+  ---@param data DU::Industry to create DataGrid from
+  -- @return DataGrid The DataGrid representation of the Industry object
   function IndustryDataToDataGrid(data)
     dataGrid = DataGrid()
     for kRow, vRow in pairs(data) do

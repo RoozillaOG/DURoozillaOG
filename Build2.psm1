@@ -341,11 +341,14 @@ function ConvertTo-LuaTable(
   $baseName = (Get-item -path (Split-Path -Leaf $Jsonfile)).Basename
 
   $lua = @"
-
+--- ${Name} Class
+-- Class to map to/from Display Name and Id
 if not ${Name} then
   ${Name} = {}
   ${Name}.__index = ${Name}
 
+  --- ${Name} Constructor
+  -- Creates a new instance of the ${Name} class
   function ${Name}()
     local self = {
       idToDisplayName = {
@@ -370,6 +373,10 @@ $(
       }
     }
 
+    --- GetId
+    -- Maps display name to id. Returns -1 if display name was not in the table.
+    ---@param displayName string the display name to retrieve id for
+    -- @return an id that represents the element
     function self.GetId(displayName)
       if(self.displayNameToId[displayName]) then
         return self.displayNameToId[displayName].id
@@ -377,6 +384,10 @@ $(
       return -1
     end
 
+    --- GetDisplayName
+    -- Maps id to display name. Will call system.getItem() if necessary.
+    ---@param id number the id to retrieve display name for
+    -- @return a string that is the Display Name of the item
     function self.GetDisplayName(id)
       if(self.idToDisplayName[id]) then
         return self.idToDisplayName[id].displayNameWithSize
