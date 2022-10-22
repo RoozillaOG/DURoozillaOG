@@ -1,4 +1,4 @@
-# DURoozillOG lua Code and Modules
+# RoozillaOG Dual Universe lua Code and Modules
 
 # Overview
 
