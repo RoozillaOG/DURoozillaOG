@@ -139,3 +139,5 @@ Contains some classes for working with DataGrids. These are used to serialize an
 1. [DataGrid](./Data/DataGrid.lua) is used to house a set of rows and columns. It is made up of [DataRows](./Data/DataRow.lua) This is also the data source for [UiTable2.lua](./Ui/UiTable2.lua) covered later.
 2. [DataRow](./Data/DataRow.lua) is used to represent a single row in 
 
+## Code Documentation
+Documentation is available [here](./doc/index.html) using ldoc as the generator.

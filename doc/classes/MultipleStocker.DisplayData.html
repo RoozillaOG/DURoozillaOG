@@ -32,7 +32,7 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Fields">Fields</a></li>
+<li><a href="#Functions">Functions</a></li>
 <li><a href="#Methods">Methods</a></li>
 </ul>
 
@@ -42,7 +42,7 @@
   <li><a href="../classes/ContainerData.html">ContainerData</a></li>
   <li><a href="../classes/ContainerMonitor.html">ContainerMonitor</a></li>
   <li><a href="../classes/ContainerManager.DisplayData.html">ContainerManager.DisplayData</a></li>
-  <li><a href="../classes/MultipleStocker.DisplayData.html">MultipleStocker.DisplayData</a></li>
+  <li><strong>MultipleStocker.DisplayData</strong></li>
   <li><a href="../classes/DataCell.html">DataCell</a></li>
   <li><a href="../classes/DataGrid.html">DataGrid</a></li>
   <li><a href="../classes/DataRow.html">DataRow</a></li>
@@ -50,7 +50,7 @@
   <li><a href="../classes/IndustryMonitor.html">IndustryMonitor</a></li>
   <li><a href="../classes/IndustryStocker.html">IndustryStocker</a></li>
   <li><a href="../classes/TransferManager.html">TransferManager</a></li>
-  <li><strong>ColorRGBA</strong></li>
+  <li><a href="../classes/ColorRGBA.html">ColorRGBA</a></li>
   <li><a href="../classes/UiTable.html">UiTable</a></li>
   <li><a href="../classes/UiTable2.html">UiTable2</a></li>
   <li><a href="../classes/ElectronicsProducts.html">ElectronicsProducts</a></li>
@@ -75,43 +75,24 @@
 
 <div id="content">
 
-<h1>Class <code>ColorRGBA</code></h1>
-<p>Color class red, green, blue, alpha with some predefines</p>
+<h1>Class <code>MultipleStocker.DisplayData</code></h1>
+<p>DisplayData for the MultipleStocker system
+ Contains the data to pass to/from the PB and the Display unit</p>
 <p></p>
 
 
-<h2><a href="#Fields">Fields</a></h2>
+<h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#ColorRGBA.ColorRGBALightGreen">ColorRGBA.ColorRGBALightGreen</a></td>
-	<td class="summary">Light Green</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ColorRGBA.ColorRGBALightRed">ColorRGBA.ColorRGBALightRed</a></td>
-	<td class="summary">Light Red</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ColorRGBA.ColorRGBALightBlue">ColorRGBA.ColorRGBALightBlue</a></td>
-	<td class="summary">Light Blue</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ColorRGBA.ColorRGBALightYellow">ColorRGBA.ColorRGBALightYellow</a></td>
-	<td class="summary">Light Yellow</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ColorRGBA.ColorRGBAWhite">ColorRGBA.ColorRGBAWhite</a></td>
-	<td class="summary">White</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ColorRGBA.ColorRGBABlack">ColorRGBA.ColorRGBABlack</a></td>
-	<td class="summary">Black</td>
+	<td class="name" nowrap><a href="#self.Update">self.Update ()</a></td>
+	<td class="summary">Update the DisplayData based on current state and post to display via setScriptInput()</td>
 	</tr>
 </table>
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#ColorRGBA:ColorRGBA">ColorRGBA:ColorRGBA (r, g, b, a)</a></td>
-	<td class="summary">Color table for r,g,b,a</td>
+	<td class="name" nowrap><a href="#MultipleStocker.DisplayData:DisplayData">MultipleStocker.DisplayData:DisplayData (stockers, containerData, display)</a></td>
+	<td class="summary">Create a new DisplayData object</td>
 	</tr>
 </table>
 
@@ -119,117 +100,17 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
     <dt>
-    <a name = "ColorRGBA.ColorRGBALightGreen"></a>
-    <strong>ColorRGBA.ColorRGBALightGreen</strong>
+    <a name = "self.Update"></a>
+    <strong>self.Update ()</strong>
     </dt>
     <dd>
-    Light Green
+    Update the DisplayData based on current state and post to display via setScriptInput()
 
 
-    <ul>
-        <li><span class="parameter">ColorRGBALightGreen</span>
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "ColorRGBA.ColorRGBALightRed"></a>
-    <strong>ColorRGBA.ColorRGBALightRed</strong>
-    </dt>
-    <dd>
-    Light Red
-
-
-    <ul>
-        <li><span class="parameter">ColorRGBALightRed</span>
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "ColorRGBA.ColorRGBALightBlue"></a>
-    <strong>ColorRGBA.ColorRGBALightBlue</strong>
-    </dt>
-    <dd>
-    Light Blue
-
-
-    <ul>
-        <li><span class="parameter">ColorRGBALightBlue</span>
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "ColorRGBA.ColorRGBALightYellow"></a>
-    <strong>ColorRGBA.ColorRGBALightYellow</strong>
-    </dt>
-    <dd>
-    Light Yellow
-
-
-    <ul>
-        <li><span class="parameter">ColorRGBALightYellow</span>
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "ColorRGBA.ColorRGBAWhite"></a>
-    <strong>ColorRGBA.ColorRGBAWhite</strong>
-    </dt>
-    <dd>
-    White
-
-
-    <ul>
-        <li><span class="parameter">ColorRGBAWhite</span>
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "ColorRGBA.ColorRGBABlack"></a>
-    <strong>ColorRGBA.ColorRGBABlack</strong>
-    </dt>
-    <dd>
-    Black
-
-
-    <ul>
-        <li><span class="parameter">ColorRGBABlack</span>
-
-        </li>
-    </ul>
 
 
 
@@ -241,26 +122,23 @@
 
     <dl class="function">
     <dt>
-    <a name = "ColorRGBA:ColorRGBA"></a>
-    <strong>ColorRGBA:ColorRGBA (r, g, b, a)</strong>
+    <a name = "MultipleStocker.DisplayData:DisplayData"></a>
+    <strong>MultipleStocker.DisplayData:DisplayData (stockers, containerData, display)</strong>
     </dt>
     <dd>
-    Color table for r,g,b,a
+    Create a new DisplayData object
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">r</span>
-
+        <li><span class="parameter">stockers</span>
+         DUIndustry The list of Industry units used to mainatin stock
         </li>
-        <li><span class="parameter">g</span>
-
+        <li><span class="parameter">containerData</span>
+         ContainerData that monitors the contents of the output container to determin when to restock
         </li>
-        <li><span class="parameter">b</span>
-
-        </li>
-        <li><span class="parameter">a</span>
-
+        <li><span class="parameter">display</span>
+         DUDisplay The DUDisplay unit to send data to
         </li>
     </ul>
 
